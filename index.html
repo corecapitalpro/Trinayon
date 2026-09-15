@@ -41,7 +41,7 @@
   input, select, textarea { font-family: inherit; }
   .hidden { display: none !important; }
 
-  /* ================= UNIQUE ANIMATED LOGIN ================= */
+  /* ================= LOGIN SCREEN ================= */
   .login-wrapper {
     min-height: 100vh;
     display: flex;
@@ -139,7 +139,7 @@
     box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
   }
 
-  /* ================= CLEAN APP HEADER ================= */
+  /* ================= APP HEADER ================= */
   .app-header {
     background: #0f172a;
     color: #fff;
@@ -171,6 +171,15 @@
   .nav-tab-btn.active {
     background: #ea580c; color: #fff; box-shadow: 0 2px 6px rgba(234,88,12,0.3);
   }
+  .nav-tab-btn.admin-tab {
+    background: #4338ca;
+    color: #e0e7ff;
+  }
+  .nav-tab-btn.admin-tab.active {
+    background: #6366f1;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  }
 
   .header-right { display: flex; align-items: center; gap: 12px; }
   .user-info-pill {
@@ -199,7 +208,6 @@
     font-size: 13px;
   }
 
-  /* Table Headers EXACT to Screenshot */
   thead th {
     position: sticky;
     top: 0;
@@ -226,7 +234,6 @@
   th.c-tothour { min-width: 120px; background: var(--th-tothour); }
   th.c-opinion { min-width: 180px; background: var(--th-opinion); }
 
-  /* Body Rows & Cells */
   tbody td {
     padding: 5px 8px;
     border-right: 1px solid #e2e8f0;
@@ -249,7 +256,6 @@
     z-index: 10;
   }
 
-  /* NEW INPUT ROW */
   tr.input-entry-row td {
     background: #fffbeb !important;
     border-bottom: 2px solid #f59e0b;
@@ -273,7 +279,6 @@
     box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.15);
   }
 
-  /* Daily Work History & Time Interactive Pill */
   .custom-history-trigger {
     display: flex;
     align-items: center;
@@ -310,7 +315,6 @@
     white-space: nowrap;
   }
 
-  /* Screenshot Pill Styles */
   .pill {
     display: inline-flex;
     align-items: center;
@@ -324,7 +328,6 @@
   .pill-maroon { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
   .pill-date { background: #e0e7ff; color: #3730a3; font-family: 'JetBrains Mono', monospace; }
 
-  /* Submit Action Row */
   .submit-row td {
     background: #f0fdf4 !important;
     padding: 8px !important;
@@ -392,6 +395,188 @@
   .card-foot {
     display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #64748b;
   }
+
+  /* ================= 👑 PROFESSIONAL ADMIN DASHBOARD STYLES ================= */
+  .admin-wrapper {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeIn 0.3s ease;
+  }
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .admin-header h2 { font-size: 22px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+  
+  /* KPI Cards Grid */
+  .admin-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: #fff;
+    padding: 18px 20px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+  }
+  .kpi-card.c-blue::after { background: #3b82f6; }
+  .kpi-card.c-green::after { background: #10b981; }
+  .kpi-card.c-orange::after { background: #ea580c; }
+  .kpi-card.c-purple::after { background: #8b5cf6; }
+
+  .kpi-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .kpi-card.c-blue .kpi-icon { background: #eff6ff; color: #2563eb; }
+  .kpi-card.c-green .kpi-icon { background: #ecfdf5; color: #059669; }
+  .kpi-card.c-orange .kpi-icon { background: #fff7ed; color: #ea580c; }
+  .kpi-card.c-purple .kpi-icon { background: #f5f3ff; color: #7c3aed; }
+
+  .kpi-data h4 { font-size: 24px; font-weight: 700; color: #0f172a; line-height: 1.1; }
+  .kpi-data p { font-size: 12.5px; color: #64748b; font-weight: 500; margin-top: 4px; }
+
+  /* Staff Summary Grid */
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .staff-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .staff-stat-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: 0.2s;
+  }
+  .staff-stat-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+  .staff-card-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+  }
+  .staff-name-wrap { display: flex; align-items: center; gap: 10px; }
+  .staff-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: #fff; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .staff-info h5 { font-size: 14px; font-weight: 700; color: #0f172a; }
+  .staff-info span { font-size: 11.5px; color: #64748b; }
+  
+  .staff-metrics {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    background: #f8fafc; padding: 10px; border-radius: 8px; text-align: center;
+  }
+  .staff-metrics .m-val { font-size: 14px; font-weight: 700; color: #0f172a; font-family: 'JetBrains Mono'; }
+  .staff-metrics .m-label { font-size: 10.5px; color: #64748b; margin-top: 2px; }
+
+  /* Admin Filter Bar */
+  .admin-filter-bar {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .filter-item { display: flex; align-items: center; gap: 8px; }
+  .filter-item label { font-size: 12.5px; font-weight: 600; color: #475569; white-space: nowrap; }
+  .filter-select, .filter-search {
+    padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 7px;
+    font-size: 13px; background: #f8fafc; outline: none;
+  }
+  .filter-select:focus, .filter-search:focus {
+    border-color: #ea580c; background: #fff;
+  }
+
+  /* Admin Detailed Table View */
+  .admin-table-container {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow-x: auto;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+  }
+  .admin-detailed-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    text-align: left;
+  }
+  .admin-detailed-table th {
+    background: #0f172a;
+    color: #fff;
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .admin-detailed-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    border-right: 1px solid #f1f5f9;
+    white-space: nowrap;
+    color: #334155;
+  }
+  .admin-detailed-table tbody tr:hover { background: #f8fafc; }
+
+  .user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .btn-print {
+    background: #334155;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+  .btn-print:hover { background: #1e293b; }
 
   /* ================= MODAL FOR CUSTOM WRITING ================= */
   .modal-overlay {
@@ -496,6 +681,14 @@
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Print Styles */
+  @media print {
+    body { background: #fff; color: #000; }
+    .app-header, .admin-filter-bar, .btn-print, .top-nav-tabs, .submit-row, .input-entry-row { display: none !important; }
+    .admin-wrapper { padding: 0; }
+    .admin-table-container { border: none; box-shadow: none; }
+  }
 </style>
 </head>
 <body>
@@ -505,7 +698,7 @@
   <span>সিস্টেম লোড হচ্ছে…</span>
 </div>
 
-<!-- ================= 1. UNIQUE LOGIN SCREEN ================= -->
+<!-- ================= 1. LOGIN SCREEN ================= -->
 <div id="login-screen" class="login-wrapper hidden">
   <div class="login-card">
     <div class="login-brand">
@@ -564,6 +757,8 @@
       <div class="top-nav-tabs">
         <button type="button" class="nav-tab-btn active" id="btn-sheet-view">📊 শিট ভিউ (Sheet)</button>
         <button type="button" class="nav-tab-btn" id="btn-history-view">📜 কাজের হিস্ট্রি (History)</button>
+        <!-- ADMIN ONLY TAB BUTTON -->
+        <button type="button" class="nav-tab-btn admin-tab hidden" id="btn-admin-view">👑 এডমিন ড্যাশবোর্ড (Admin)</button>
       </div>
     </div>
 
@@ -580,7 +775,6 @@
   <main id="view-sheet-section" class="table-viewport">
     <table class="sheet-table">
       <thead>
-        <!-- EXACT COLUMN SERIAL AND COLORS AS IN SCREENSHOT -->
         <tr>
           <th class="c-sl">JKT ⌵</th>
           <th class="c-start">Start date ⌵</th>
@@ -601,16 +795,13 @@
         <!-- Live Form Input Row (Row #1) -->
         <tr class="input-entry-row">
           <td class="c-sl-val">NEW</td>
-          <!-- A: Start date -->
           <td><input type="date" id="in-start-date" /></td>
-          <!-- B: Daily Work history & Time (Custom System) -->
           <td>
             <div class="custom-history-trigger" id="btn-open-custom-input">
               <span class="history-text" id="preview-custom-text">Web browsing 5h + soft intall 2h + edit...</span>
               <span class="badge-write">✍️ কাস্টম লিখুন</span>
             </div>
           </td>
-          <!-- C: Status 1 -->
           <td>
             <select id="in-status1">
               <option value="Complete">Complete</option>
@@ -618,13 +809,10 @@
               <option value="Pending">Pending</option>
             </select>
           </td>
-          <!-- D: Edite Subject -->
           <td>
             <input type="text" id="in-subject" placeholder="গ্রাম-ডাক্তার" value="গ্রাম-ডাক্তার" />
           </td>
-          <!-- E: Edite Time M/S -->
           <td><input type="number" step="0.1" id="in-edittime" placeholder="0.2.5" value="0.2.5" /></td>
-          <!-- F: Status 2 -->
           <td>
             <select id="in-status2">
               <option value="On track" selected>On track</option>
@@ -632,19 +820,14 @@
               <option value="Delay">Delay</option>
             </select>
           </td>
-          <!-- G: End date -->
           <td><input type="date" id="in-end-date" /></td>
-          <!-- H: Total Day,s -->
           <td id="live-days" style="text-align:center;font-weight:600;color:#64748b">—</td>
-          <!-- I: Total Edite Time -->
           <td id="live-totedit" style="text-align:center;font-weight:600;color:#64748b">—</td>
-          <!-- J: Total hour,s -->
           <td id="live-tothour" style="text-align:center;font-weight:600;color:#64748b">—</td>
-          <!-- K: Person Openion -->
           <td><input type="text" id="in-opinion" placeholder="মতামত..." /></td>
         </tr>
 
-        <!-- Submit Button Row with Clean Animation -->
+        <!-- Submit Button Row -->
         <tr class="submit-row">
           <td colspan="12">
             <button type="button" id="btn-save-record" class="btn-submit-action">
@@ -653,7 +836,6 @@
           </td>
         </tr>
 
-        <!-- Data Rows dynamically populated here -->
       </tbody>
     </table>
   </main>
@@ -669,13 +851,114 @@
     </div>
 
     <div class="history-card-grid" id="history-cards-container">
-      <!-- Injected by JavaScript -->
+      <!-- Injected by JS -->
     </div>
+  </main>
+
+  <!-- ================= VIEW C: 👑 PROFESSIONAL ADMIN DASHBOARD ================= -->
+  <main id="view-admin-section" class="admin-wrapper hidden">
+    
+    <!-- Admin Header -->
+    <div class="admin-header">
+      <div>
+        <h2>👑 এডমিন ওভারভিউ ও মনিটরিং প্যানেল</h2>
+        <p style="font-size:13px; color:#64748b; margin-top:2px;">সকল স্টাফের দৈনিক কাজের হিসাব, মোট সময় ও পারফরম্যান্স রিপোর্ট</p>
+      </div>
+      <button type="button" class="btn-print" id="btn-admin-print">
+        🖨️ প্রিন্ট / রিপোর্ট এক্সপোর্ট
+      </button>
+    </div>
+
+    <!-- 1. Global KPI Metrics -->
+    <div class="admin-kpi-grid">
+      <div class="kpi-card c-blue">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-data">
+          <h4 id="kpi-total-staff">0</h4>
+          <p>মোট অ্যাক্টিভ স্টাফ</p>
+        </div>
+      </div>
+      <div class="kpi-card c-green">
+        <div class="kpi-icon">📁</div>
+        <div class="kpi-data">
+          <h4 id="kpi-total-tasks">0</h4>
+          <p>মোট সাবমিটকৃত কাজ</p>
+        </div>
+      </div>
+      <div class="kpi-card c-orange">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-data">
+          <h4 id="kpi-total-hours">0h</h4>
+          <p>মোট কাজের সময় (Total Hours)</p>
+        </div>
+      </div>
+      <div class="kpi-card c-purple">
+        <div class="kpi-icon">🎬</div>
+        <div class="kpi-data">
+          <h4 id="kpi-total-edittime">0</h4>
+          <p>মোট এডিট টাইম (Edit M/S)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Staff Summary Cards (Per-user summary) -->
+    <div class="section-title">
+      <span>👤 স্টাফ ভিত্তিক কাজের সারসংক্ষেপ</span>
+    </div>
+    <div class="staff-cards-container" id="staff-summary-container">
+      <!-- Generated Dynamically -->
+    </div>
+
+    <!-- 3. Filter Bar -->
+    <div class="admin-filter-bar">
+      <div class="filter-item">
+        <label>স্টাফ ফিল্টার:</label>
+        <select id="admin-filter-user" class="filter-select">
+          <option value="ALL">সকল স্টাফ (All Staff)</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label>কাজের স্ট্যাটাস:</label>
+        <select id="admin-filter-status" class="filter-select">
+          <option value="ALL">সকল স্ট্যাটাস</option>
+          <option value="Complete">Complete</option>
+          <option value="On track">On track</option>
+          <option value="Pending">Pending</option>
+        </select>
+      </div>
+      <div class="filter-item" style="flex:1;">
+        <input type="text" id="admin-search-text" class="filter-search" style="width:100%;" placeholder="কাজের নাম, বিষয় অথবা বিবরণ লিখে ফিল্টার করুন..." />
+      </div>
+    </div>
+
+    <!-- 4. Detailed Admin Audit Table -->
+    <div class="admin-table-container">
+      <table class="admin-detailed-table">
+        <thead>
+          <tr>
+            <th>স্টাফ মেম্বার (Staff)</th>
+            <th>কাজের বিষয় (Subject)</th>
+            <th>শুরুর তারিখ (Start)</th>
+            <th>শেষের তারিখ (End)</th>
+            <th style="text-align:center;">মোট দিন (Days)</th>
+            <th style="text-align:center;">মোট ঘণ্টা (Hours)</th>
+            <th style="text-align:center;">এডিট টাইম (M/S)</th>
+            <th>স্ট্যাটাস (Status)</th>
+            <th>Daily Work History (কাজের বিবরণ)</th>
+            <th>মন্তব্য (Opinion)</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
   </main>
 
 </div>
 
-<!-- ================= 3. CUSTOM DAILY WORK HISTORY MODAL ================= -->
+<!-- ================= 4. CUSTOM MODAL ================= -->
 <div id="modal-custom-editor" class="modal-overlay hidden">
   <div class="custom-editor-modal">
     <div class="editor-header">
@@ -705,7 +988,7 @@
 
 <div id="toast" class="toast-box hidden"></div>
 
-<!-- ================= 4. FIREBASE SCRIPT & LOGIC ================= -->
+<!-- ================= 5. JAVASCRIPT & FIREBASE LOGIC ================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
@@ -713,7 +996,7 @@ import {
   updateProfile, signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, onSnapshot, serverTimestamp
+  getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, onSnapshot, getDocs, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -732,6 +1015,7 @@ const db = getFirestore(app);
 const $ = (id) => document.getElementById(id);
 
 let currentEntries = [];
+let allUsersMap = {}; // Map of uid -> user info
 let activeModalRecordId = null; 
 let currentUserRole = "staff";
 
@@ -773,19 +1057,49 @@ $("tab-signup").addEventListener("click", () => {
 });
 
 // Switch Views
-$("btn-sheet-view").addEventListener("click", () => {
-  $("btn-sheet-view").classList.add("active");
-  $("btn-history-view").classList.remove("active");
-  $("view-sheet-section").classList.remove("hidden");
-  $("view-history-section").classList.add("hidden");
-});
+function activateTab(tabBtnId, sectionId) {
+  ["btn-sheet-view", "btn-history-view", "btn-admin-view"].forEach(b => $(b).classList.remove("active"));
+  ["view-sheet-section", "view-history-section", "view-admin-section"].forEach(s => $(s).classList.add("hidden"));
+
+  $(tabBtnId).classList.add("active");
+  $(sectionId).classList.remove("hidden");
+}
+
+$("btn-sheet-view").addEventListener("click", () => activateTab("btn-sheet-view", "view-sheet-section"));
 $("btn-history-view").addEventListener("click", () => {
-  $("btn-history-view").classList.add("active");
-  $("btn-sheet-view").classList.remove("active");
-  $("view-history-section").classList.remove("hidden");
-  $("view-sheet-section").classList.add("hidden");
+  activateTab("btn-history-view", "view-history-section");
   renderHistoryView(currentEntries);
 });
+$("btn-admin-view").addEventListener("click", () => {
+  activateTab("btn-admin-view", "view-admin-section");
+  renderAdminPanel(currentEntries);
+});
+
+// Print Admin Report
+$("btn-admin-print").addEventListener("click", () => window.print());
+
+// Fetch All Registered Users (For Admin Mapping)
+async function loadAllUsers() {
+  try {
+    const snap = await getDocs(collection(db, "users"));
+    allUsersMap = {};
+    snap.forEach(d => {
+      allUsersMap[d.id] = d.data();
+    });
+    populateAdminUserFilter();
+  } catch (e) {
+    console.error("Error loading users:", e);
+  }
+}
+
+function populateAdminUserFilter() {
+  const sel = $("admin-filter-user");
+  sel.innerHTML = `<option value="ALL">সকল স্টাফ (All Staff)</option>`;
+  Object.keys(allUsersMap).forEach(uid => {
+    const u = allUsersMap[uid];
+    sel.innerHTML += `<option value="${uid}">${u.name || u.email} (${u.role || 'staff'})</option>`;
+  });
+}
 
 // Auth State Observer
 let unsub = null;
@@ -799,6 +1113,8 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   let profileName = user.displayName || user.email;
+  currentUserRole = "staff"; // default
+
   try {
     const s = await getDoc(doc(db, "users", user.uid));
     if (s.exists()) {
@@ -812,10 +1128,18 @@ onAuthStateChanged(auth, async (user) => {
   $("app-screen").classList.remove("hidden");
   $("display-user-name").textContent = `${profileName} (${currentUserRole === 'admin' ? 'এডমিন' : 'স্টাফ'})`;
 
-  // Realtime Query: (Composite index bypass: we sort in JS to ensure 100% instant display)
+  // Check Admin Role & Show Admin Tab Button
+  if (currentUserRole === "admin") {
+    $("btn-admin-view").classList.remove("hidden");
+    await loadAllUsers();
+  } else {
+    $("btn-admin-view").classList.add("hidden");
+  }
+
+  // Firestore Data Query
   let q;
   if (currentUserRole === "admin") {
-    q = collection(db, "entries");
+    q = collection(db, "entries"); // Admin sees all records
   } else {
     q = query(collection(db, "entries"), where("uid", "==", user.uid));
   }
@@ -823,7 +1147,7 @@ onAuthStateChanged(auth, async (user) => {
   unsub = onSnapshot(q, (snapshot) => {
     currentEntries = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
     
-    // Sort descending by timestamp in JS (eliminates Firestore Missing Index errors)
+    // Sort in Javascript descending
     currentEntries.sort((a, b) => {
       const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : 0;
       const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : 0;
@@ -832,6 +1156,10 @@ onAuthStateChanged(auth, async (user) => {
 
     renderSheetView(currentEntries);
     renderHistoryView(currentEntries);
+
+    if (currentUserRole === "admin") {
+      renderAdminPanel(currentEntries);
+    }
   }, (err) => {
     console.error("Firestore query error:", err);
     showToast("ডেটা লোড করতে সমস্যা হয়েছে!");
@@ -848,7 +1176,7 @@ function renderSheetView(entries) {
   tbody.appendChild(inputRow);
   tbody.appendChild(submitRow);
 
-  let sl = 2; // Matches screenshot row numbers
+  let sl = 2;
   entries.forEach((e) => {
     const days = calcDays(e.startDate, e.endDate);
     const totEdit = (e.editTime && days) ? (parseFloat(e.editTime) * days).toFixed(1) : (e.editTime || "—");
@@ -919,6 +1247,156 @@ function renderHistoryView(entries) {
   });
 }
 
+// ================= 👑 ADMIN PANEL LOGIC & RENDERING =================
+function renderAdminPanel(entries) {
+  const selectedUser = $("admin-filter-user").value;
+  const selectedStatus = $("admin-filter-status").value;
+  const searchTxt = $("admin-search-text").value.toLowerCase().trim();
+
+  // Filter entries
+  let filtered = entries.filter(item => {
+    const matchUser = (selectedUser === "ALL" || item.uid === selectedUser);
+    const matchStatus = (selectedStatus === "ALL" || item.status1 === selectedStatus || item.status2 === selectedStatus);
+    const staffName = allUsersMap[item.uid]?.name || "";
+    const matchSearch = !searchTxt || 
+      (item.subject && item.subject.toLowerCase().includes(searchTxt)) ||
+      (item.workHistory && item.workHistory.toLowerCase().includes(searchTxt)) ||
+      (staffName.toLowerCase().includes(searchTxt));
+
+    return matchUser && matchStatus && matchSearch;
+  });
+
+  // 1. Calculate Aggregate KPIs
+  let totalTasks = filtered.length;
+  let totalHours = 0;
+  let totalEditSum = 0;
+  let activeStaffSet = new Set();
+
+  // Grouping for Staff Cards
+  const staffGroupMap = {};
+
+  filtered.forEach(e => {
+    if (e.uid) activeStaffSet.add(e.uid);
+    const days = calcDays(e.startDate, e.endDate) || 1;
+    const hours = days * 8;
+    const editT = parseFloat(e.editTime) || 0;
+
+    totalHours += hours;
+    totalEditSum += editT;
+
+    if (!staffGroupMap[e.uid]) {
+      staffGroupMap[e.uid] = {
+        name: allUsersMap[e.uid]?.name || "Staff Member",
+        email: allUsersMap[e.uid]?.email || "N/A",
+        count: 0,
+        totalDays: 0,
+        totalHours: 0,
+        totalEdit: 0
+      };
+    }
+    staffGroupMap[e.uid].count++;
+    staffGroupMap[e.uid].totalDays += days;
+    staffGroupMap[e.uid].totalHours += hours;
+    staffGroupMap[e.uid].totalEdit += editT;
+  });
+
+  $("kpi-total-staff").textContent = activeStaffSet.size;
+  $("kpi-total-tasks").textContent = totalTasks;
+  $("kpi-total-hours").textContent = `${totalHours} hrs`;
+  $("kpi-total-edittime").textContent = totalEditSum.toFixed(1);
+
+  // 2. Render Staff Summary Cards
+  const staffCardsContainer = $("staff-summary-container");
+  staffCardsContainer.innerHTML = "";
+  
+  const staffKeys = Object.keys(staffGroupMap);
+  if (staffKeys.length === 0) {
+    staffCardsContainer.innerHTML = `<div style="grid-column:1/-1;color:#64748b;font-size:13px;">কোনো স্টাফের রেকর্ড পাওয়া যায়নি।</div>`;
+  } else {
+    staffKeys.forEach(uid => {
+      const s = staffGroupMap[uid];
+      const initial = s.name.charAt(0).toUpperCase();
+      const card = document.createElement("div");
+      card.className = "staff-stat-card";
+      card.innerHTML = `
+        <div class="staff-card-header">
+          <div class="staff-name-wrap">
+            <div class="staff-avatar">${initial}</div>
+            <div class="staff-info">
+              <h5>${s.name}</h5>
+              <span>${s.email}</span>
+            </div>
+          </div>
+          <span class="pill pill-green">${s.count} টি কাজ</span>
+        </div>
+        <div class="staff-metrics">
+          <div>
+            <div class="m-val">${s.totalDays}</div>
+            <div class="m-label">মোট দিন</div>
+          </div>
+          <div>
+            <div class="m-val" style="color:#ea580c">${s.totalHours}h</div>
+            <div class="m-label">মোট ঘণ্টা</div>
+          </div>
+          <div>
+            <div class="m-val" style="color:#16a34a">${s.totalEdit.toFixed(1)}</div>
+            <div class="m-label">এডিট M/S</div>
+          </div>
+        </div>
+      `;
+      staffCardsContainer.appendChild(card);
+    });
+  }
+
+  // 3. Render Admin Detailed Audit Table
+  const tableBody = $("admin-table-body");
+  tableBody.innerHTML = "";
+
+  if (filtered.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:30px;color:#94a3b8;">কোনো ডেটা ফিল্টারের সাথে মেলেনি।</td></tr>`;
+    return;
+  }
+
+  filtered.forEach(item => {
+    const days = calcDays(item.startDate, item.endDate);
+    const hours = days ? days * 8 : "—";
+    const staffName = allUsersMap[item.uid]?.name || "অজানা ইউজার";
+    const staffEmail = allUsersMap[item.uid]?.email || "";
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <div class="user-badge">
+          <span style="color:#2563eb">👤</span>
+          <div>
+            <div>${staffName}</div>
+            <div style="font-size:11px;color:#64748b;">${staffEmail}</div>
+          </div>
+        </div>
+      </td>
+      <td><strong style="color:#0f172a;">${item.subject || '—'}</strong></td>
+      <td><span class="pill pill-date">${formatDate(item.startDate)}</span></td>
+      <td><span class="pill pill-date">${formatDate(item.endDate)}</span></td>
+      <td style="text-align:center;font-weight:700;">${days || '—'}</td>
+      <td style="text-align:center;font-weight:700;color:#ea580c;">${hours}h</td>
+      <td style="text-align:center;font-weight:600;">${item.editTime || '0'}</td>
+      <td>
+        <span class="pill ${item.status1 === 'Complete' ? 'pill-green' : 'pill-orange'}">${item.status1 || 'On track'}</span>
+      </td>
+      <td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${item.workHistory || ''}">
+        ${item.workHistory || '—'}
+      </td>
+      <td style="color:#be185d;font-weight:600;">${item.opinion || '—'}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
+}
+
+// Admin Filters Event Listeners
+$("admin-filter-user").addEventListener("change", () => renderAdminPanel(currentEntries));
+$("admin-filter-status").addEventListener("change", () => renderAdminPanel(currentEntries));
+$("admin-search-text").addEventListener("input", () => renderAdminPanel(currentEntries));
+
 // Search History
 $("history-search").addEventListener("input", (e) => {
   const q = e.target.value.toLowerCase().trim();
@@ -976,7 +1454,7 @@ $("btn-confirm-editor").addEventListener("click", async () => {
       showToast("কাস্টম ইতিহাস সফলভাবে আপডেট হয়েছে!");
     } catch (err) {
       console.error(err);
-      alert("আপডেট করতে ব্যর্থ হয়েছে। ফায়ারবেজ রুলস চেক করুন।");
+      alert("আপডেট করতে ব্যর্থ হয়েছে।");
     }
   } else {
     $("preview-custom-text").textContent = content;
@@ -1085,6 +1563,7 @@ $("signup-form").addEventListener("submit", async (e) => {
   try {
     const cred = await createUserWithEmailAndPassword(auth, $("signup-email").value, $("signup-password").value);
     await updateProfile(cred.user, { displayName: name });
+    // Default new accounts get 'staff' role
     await setDoc(doc(db, "users", cred.user.uid), { name, email: $("signup-email").value, role: "staff", createdAt: serverTimestamp() });
   } catch (err) {
     $("login-error").textContent = err.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে।";
