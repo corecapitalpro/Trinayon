@@ -3,526 +3,709 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DAILY WORK — Professional Work Management</title>
+<title>Daily Work Management & History</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg-page: #f4f6f9;
+    --bg: #0f172a;
     --paper: #ffffff;
     --ink: #1e293b;
-    --ink-light: #64748b;
+    --ink-muted: #64748b;
     --border: #e2e8f0;
-    --border-strong: #cbd5e1;
-    --primary: #059669;
-    --primary-hover: #047857;
-    --primary-soft: #ecfdf5;
-    --accent: #2563eb;
-    --accent-soft: #eff6ff;
-    --custom-purple: #7c3aed;
-    --custom-purple-soft: #f5f3ff;
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --font-ui: 'Inter', sans-serif;
-    --font-bn: 'Hind Siliguri', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-
-    /* Column Themes */
-    --th-sl: #334155;
-    --th-date: #1e3a8a;
-    --th-type: #b45309;
-    --th-subject: #831843;
-    --th-time: #065f46;
-    --th-custom: #581c87;
-    --th-status: #1e293b;
+    
+    /* Exact Screenshot Header Colors */
+    --th-sl: #1e293b;
+    --th-start: #2e1065;      /* Col A: Dark Purple */
+    --th-history: #ea580c;    /* Col B: Orange */
+    --th-status1: #14532d;    /* Col C: Deep Green */
+    --th-subject: #7f1d1d;    /* Col D: Deep Maroon */
+    --th-edittime: #15803d;   /* Col E: Green */
+    --th-status2: #991b1b;    /* Col F: Deep Red */
+    --th-end: #312e81;        /* Col G: Dark Indigo */
+    --th-days: #115e59;       /* Col H: Deep Teal */
+    --th-totedit: #16a34a;    /* Col I: Forest Green */
+    --th-tothour: #15803d;    /* Col J: Dark Green */
+    --th-opinion: #be185d;    /* Col K: Deep Pink */
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background: var(--bg-page);
+    background: #f1f5f9;
     color: var(--ink);
-    font-family: var(--font-bn);
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  button { font-family: var(--font-bn); cursor: pointer; border: none; background: none; transition: 0.2s; }
-  input, select, textarea { font-family: var(--font-bn); }
+  button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+  input, select, textarea { font-family: inherit; }
   .hidden { display: none !important; }
 
-  /* Loading */
-  .page-loading {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    height: 100vh; gap: 14px; color: var(--ink-light); font-size: 15px; font-weight: 500;
-  }
-  .spinner {
-    width: 36px; height: 36px; border: 3px solid #cbd5e1;
-    border-top-color: var(--primary); border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Login Shell */
-  .login-shell {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle at 10% 20%, #e2e8f0 0%, #f8fafc 90%);
+  /* ================= UNIQUE ANIMATED LOGIN ================= */
+  .login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
+    background: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+    position: relative;
+    overflow: hidden;
   }
+  
+  .login-wrapper::before, .login-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    filter: blur(85px);
+    opacity: 0.45;
+    animation: floatOrb 8s infinite alternate ease-in-out;
+  }
+  .login-wrapper::before { background: #ea580c; top: -60px; left: -60px; }
+  .login-wrapper::after { background: #2563eb; bottom: -60px; right: -60px; animation-delay: -4s; }
+  @keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 40px) scale(1.15); }
+  }
+
   .login-card {
-    width: 100%; max-width: 400px; background: #fff;
-    border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 40px 32px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06), 0 8px 10px -6px rgba(0,0,0,0.04);
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 18px;
+    padding: 36px 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+    animation: cardEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .login-logo { text-align: center; margin-bottom: 26px; }
-  .login-logo .icon-box {
-    width: 52px; height: 52px; background: linear-gradient(135deg, #10b981, #059669);
-    border-radius: 14px; display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 26px; font-weight: 700; margin-bottom: 12px;
-    box-shadow: 0 4px 12px rgba(16,185,129,0.3);
-  }
-  .login-logo h1 { font-family: var(--font-ui); font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.5px; }
-  .login-logo p { font-size: 13px; color: var(--ink-light); margin-top: 4px; }
-  
-  .auth-toggle {
-    display: flex; background: #f1f5f9; border-radius: 8px; padding: 4px; margin-bottom: 22px;
-  }
-  .auth-toggle button {
-    flex: 1; padding: 8px 0; border-radius: 6px; font-size: 13.5px; font-weight: 600; color: var(--ink-light);
-  }
-  .auth-toggle button.active {
-    background: #fff; color: var(--ink); box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  @keyframes cardEnter {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-  .field label { font-size: 12.5px; font-weight: 600; color: var(--ink-light); }
-  .field input {
-    border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px;
-    font-size: 14px; outline: none; transition: 0.15s; background: #fafafa;
+  .login-brand { text-align: center; margin-bottom: 24px; }
+  .login-brand .logo-cube {
+    width: 50px; height: 50px;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 24px; font-weight: bold;
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.35);
   }
-  .field input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
-  .btn-solid {
-    width: 100%; background: var(--accent); color: #fff; border-radius: 8px;
-    padding: 12px 0; font-size: 14.5px; font-weight: 600; margin-top: 6px;
-  }
-  .btn-solid:hover { background: #1d4ed8; }
-  .banner { padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
-  .banner.error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+  .login-brand h2 { font-size: 22px; font-weight: 700; color: #0f172a; }
+  .login-brand p { font-size: 13px; color: #64748b; margin-top: 3px; }
 
-  /* App Screen */
-  #app-screen { display: flex; flex-direction: column; min-height: 100vh; }
-  
-  /* Top Bar */
-  .navbar {
-    background: #ffffff; border-bottom: 1px solid var(--border);
-    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 40; box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  .tab-pill-box {
+    display: flex; background: #e2e8f0; border-radius: 10px; padding: 4px; margin-bottom: 22px;
   }
-  .nav-left { display: flex; align-items: center; gap: 14px; }
-  .logo-badge {
-    width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #10b981, #059669);
-    color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700;
+  .tab-pill-box button {
+    flex: 1; padding: 8px 0; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+    color: #64748b; transition: all 0.25s ease;
   }
-  .nav-title { font-family: var(--font-ui); font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
-  
-  .view-switcher {
-    display: flex; background: #f1f5f9; border-radius: 8px; padding: 3px; gap: 3px; margin-left: 20px;
-  }
-  .view-btn {
-    padding: 6px 14px; border-radius: 6px; font-size: 12.5px; font-weight: 600; color: var(--ink-light);
-  }
-  .view-btn.active {
-    background: #fff; color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  .tab-pill-box button.active {
+    background: #ffffff; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
-  .nav-right { display: flex; align-items: center; gap: 14px; }
-  .user-badge {
-    display: flex; align-items: center; gap: 10px; padding: 6px 14px 6px 8px;
-    border-radius: 25px; background: #f8fafc; border: 1px solid var(--border);
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label { font-size: 12.5px; font-weight: 600; color: #475569; }
+  .form-group input {
+    border: 1.5px solid #cbd5e1; border-radius: 9px; padding: 11px 14px;
+    font-size: 14px; outline: none; transition: 0.2s; background: #f8fafc;
   }
-  .user-avatar {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
-    color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  .form-group input:focus {
+    border-color: #ea580c; background: #fff; box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
   }
-  .user-name { font-size: 13.5px; font-weight: 600; }
+
+  .btn-submit-login {
+    width: 100%;
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 700;
+    padding: 12px 0;
+    border-radius: 9px;
+    margin-top: 8px;
+    box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+    transition: all 0.2s ease;
+  }
+  .btn-submit-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
+  }
+
+  /* ================= CLEAN APP HEADER ================= */
+  .app-header {
+    background: #0f172a;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .badge-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    display: flex; align-items: center; justify-content: center; font-weight: bold;
+  }
+  .app-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+
+  /* Navigation Tabs */
+  .top-nav-tabs {
+    display: flex; background: #1e293b; border-radius: 8px; padding: 3px; gap: 4px;
+  }
+  .nav-tab-btn {
+    padding: 6px 14px; border-radius: 6px; font-size: 12.5px; font-weight: 600;
+    color: #94a3b8; transition: 0.2s;
+  }
+  .nav-tab-btn.active {
+    background: #ea580c; color: #fff; box-shadow: 0 2px 6px rgba(234,88,12,0.3);
+  }
+
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .user-info-pill {
+    display: flex; align-items: center; gap: 8px; background: #1e293b;
+    padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 500;
+  }
+  .user-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
   .btn-logout {
-    font-size: 12.5px; color: #ef4444; padding: 6px 12px; border-radius: 6px; font-weight: 600;
-    border: 1px solid #fee2e2; background: #fff5f5;
+    background: #ef4444; color: #fff; padding: 5px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; transition: 0.15s;
   }
-  .btn-logout:hover { background: #fee2e2; }
+  .btn-logout:hover { background: #dc2626; }
 
-  /* Dashboard Overview Cards */
-  .metrics-bar {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 14px; padding: 18px 24px; background: #fff; border-bottom: 1px solid var(--border);
-  }
-  .metric-card {
-    background: var(--bg-page); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 16px; display: flex; flex-direction: column; gap: 4px;
-  }
-  .metric-card .val { font-family: var(--font-ui); font-size: 22px; font-weight: 700; color: var(--ink); }
-  .metric-card .lbl { font-size: 12px; font-weight: 600; color: var(--ink-light); }
-
-  /* Sheet Area */
-  .sheet-container {
-    flex: 1; overflow: auto; background: #fff; position: relative;
-    max-height: calc(100vh - 165px);
+  /* ================= SPREADSHEET VIEW ================= */
+  .table-viewport {
+    flex: 1;
+    overflow: auto;
+    background: #fff;
+    max-height: calc(100vh - 56px);
   }
   table.sheet-table {
-    border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: max-content;
+    min-width: 100%;
     font-size: 13px;
   }
 
-  /* Table Headers */
-  thead tr.col-letters th {
-    background: #f8fafc; color: #94a3b8; font-family: var(--font-mono); font-size: 11px;
-    font-weight: 600; text-align: center; padding: 4px 6px; border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20;
+  /* Table Headers EXACT to Screenshot */
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 9px 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 2px solid rgba(0,0,0,0.15);
+    white-space: nowrap;
+    text-align: center;
   }
-  thead tr.col-names th {
-    position: sticky; top: 25px; z-index: 20; color: #fff; font-weight: 600;
-    text-align: left; padding: 10px 14px; font-size: 12.5px; border-right: 1px solid rgba(255,255,255,0.15);
+  th.c-sl { width: 55px; background: var(--th-sl); }
+  th.c-start { min-width: 130px; background: var(--th-start); }
+  th.c-history { min-width: 320px; background: var(--th-history); }
+  th.c-status1 { min-width: 130px; background: var(--th-status1); }
+  th.c-subject { min-width: 150px; background: var(--th-subject); }
+  th.c-edittime { min-width: 120px; background: var(--th-edittime); }
+  th.c-status2 { min-width: 130px; background: var(--th-status2); }
+  th.c-end { min-width: 130px; background: var(--th-end); }
+  th.c-days { min-width: 110px; background: var(--th-days); }
+  th.c-totedit { min-width: 130px; background: var(--th-totedit); }
+  th.c-tothour { min-width: 120px; background: var(--th-tothour); }
+  th.c-opinion { min-width: 180px; background: var(--th-opinion); }
+
+  /* Body Rows & Cells */
+  tbody td {
+    padding: 5px 8px;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    height: 38px;
+    vertical-align: middle;
+    white-space: nowrap;
+    background: #fff;
+    font-size: 12.5px;
+  }
+  tbody td.c-sl-val {
+    background: #f8fafc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    color: #64748b;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+  }
+
+  /* NEW INPUT ROW */
+  tr.input-entry-row td {
+    background: #fffbeb !important;
+    border-bottom: 2px solid #f59e0b;
+  }
+  tr.input-entry-row td.c-sl-val {
+    background: #f59e0b !important;
+    color: #fff;
+    font-weight: 700;
+  }
+  tr.input-entry-row input, tr.input-entry-row select {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 12.5px;
+    outline: none;
+    background: #fff;
+  }
+  tr.input-entry-row input:focus, tr.input-entry-row select:focus {
+    border-color: #ea580c;
+    box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.15);
+  }
+
+  /* Daily Work History & Time Interactive Pill */
+  .custom-history-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .custom-history-trigger:hover {
+    background: #ffedd5;
+    border-color: #ea580c;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(234,88,12,0.15);
+  }
+  .custom-history-trigger .history-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #9a3412;
+    font-weight: 600;
+  }
+  .badge-write {
+    background: #ea580c;
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
     white-space: nowrap;
   }
-  
-  th.c-sl { background: var(--th-sl); text-align: center; min-width: 60px; }
-  th.c-date { background: var(--th-date); min-width: 125px; }
-  th.c-type { background: var(--th-type); min-width: 130px; }
-  th.c-subject { background: var(--th-subject); min-width: 180px; }
-  th.c-time { background: var(--th-time); min-width: 120px; }
-  th.c-calc { background: #334155; min-width: 105px; }
-  th.c-status { background: var(--th-status); min-width: 135px; }
-  th.c-task { background: #475569; min-width: 180px; }
-  th.c-custom { background: var(--th-custom); min-width: 200px; } /* Custom Daily Work History */
-  th.c-rating { background: #1e40af; min-width: 115px; }
 
-  /* Body Rows */
-  tbody td {
-    padding: 6px 12px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    height: 42px; vertical-align: middle; white-space: nowrap; background: #fff;
+  /* Screenshot Pill Styles */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
   }
-  tbody td.sl-num {
-    background: #f8fafc; font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-    color: #64748b; text-align: center; position: sticky; left: 0; z-index: 10;
-  }
+  .pill-green { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+  .pill-orange { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+  .pill-maroon { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
+  .pill-date { background: #e0e7ff; color: #3730a3; font-family: 'JetBrains Mono', monospace; }
 
-  /* Live Entry Input Row */
-  tr.input-row td {
-    background: #fdfbf7 !important; border-bottom: 2px solid #fde68a;
+  /* Submit Action Row */
+  .submit-row td {
+    background: #f0fdf4 !important;
+    padding: 8px !important;
+    text-align: center;
   }
-  tr.input-row td.sl-num { background: #f59e0b !important; color: #fff; }
-  tr.input-row input, tr.input-row select {
-    width: 100%; border: 1px solid transparent; border-radius: 6px; background: transparent;
-    padding: 6px 8px; font-size: 13px; color: var(--ink);
+  .btn-submit-action {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    padding: 9px 26px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  tr.input-row input:focus, tr.input-row select:focus {
-    background: #fff; border-color: var(--accent); outline: none; box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
-  }
-
-  .action-submit-row td {
-    background: #f0fdf4 !important; padding: 12px !important; text-align: center;
-  }
-  .btn-submit-entry {
-    background: var(--primary); color: #fff; font-weight: 700; font-size: 14px;
-    padding: 10px 24px; border-radius: 8px; box-shadow: 0 4px 10px rgba(5,150,105,0.25);
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-submit-entry:hover { background: var(--primary-hover); transform: translateY(-1px); }
-
-  /* Badges & Pills */
-  .badge {
-    display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px;
-    border-radius: 20px; font-size: 11.5px; font-weight: 600;
-  }
-  .badge-pending { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
-  .badge-review { background: #fffbeb; color: #b45309; border: 1px solid #fef3c7; }
-  .badge-complete { background: #f0fdf4; color: #15803d; border: 1px solid #dcfce7; }
-  .badge-rating { background: #eff6ff; color: #1d4ed8; font-family: var(--font-mono); font-weight: 700; border: 1px solid #bfdbfe; }
-
-  /* Interactive Custom Button in Table */
-  .btn-custom-action {
-    display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
-    border-radius: 6px; font-size: 12px; font-weight: 600;
-    background: var(--custom-purple-soft); color: var(--custom-purple);
-    border: 1px solid #ddd6fe; cursor: pointer; transition: 0.15s;
-  }
-  .btn-custom-action:hover {
-    background: var(--custom-purple); color: #fff;
-  }
-  .btn-custom-action.has-data {
-    background: #ede9fe; border-color: #c4b5fd; font-weight: 700;
+  .btn-submit-action:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
   }
 
-  /* Dedicated History View Container */
-  .history-container {
-    padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%;
+  /* ================= DEDICATED HISTORY VIEW ================= */
+  .history-wrapper {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.3s ease;
   }
-  .history-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
-    flex-wrap: wrap; gap: 12px;
-  }
-  .history-header h2 { font-size: 20px; font-weight: 700; }
-  .search-box {
-    background: #fff; border: 1px solid var(--border); border-radius: 8px;
-    padding: 8px 14px; font-size: 13px; width: 260px; outline: none;
-  }
-
-  /* MODAL: Custom Daily Work Editor */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center;
-    z-index: 100; padding: 20px; animation: fadeIn 0.15s ease-out;
-  }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-  .custom-modal {
-    background: #fff; width: 100%; max-width: 580px; border-radius: var(--radius-lg);
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 10px 10px -5px rgba(0,0,0,0.1);
-    overflow: hidden; display: flex; flex-direction: column;
-  }
-  .modal-head {
-    background: #fafafa; padding: 18px 22px; border-bottom: 1px solid var(--border);
+  .history-header-box {
     display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
   }
-  .modal-head h3 {
-    font-size: 17px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px;
+  .history-header-box h3 { font-size: 20px; font-weight: 700; }
+  .search-input {
+    padding: 9px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px;
+    width: 280px; font-size: 13px; outline: none; background: #fff;
   }
-  .modal-head h3 span { color: var(--custom-purple); }
-  .btn-close { font-size: 22px; color: var(--ink-light); cursor: pointer; }
-  .modal-body { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+  .search-input:focus { border-color: #ea580c; box-shadow: 0 0 0 2px rgba(234,88,12,0.15); }
   
-  .meta-pills {
-    display: flex; gap: 10px; flex-wrap: wrap; background: #f8fafc;
-    padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 12.5px;
+  .history-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
   }
-  .meta-pills span { color: var(--ink-light); }
-  .meta-pills strong { color: var(--ink); }
+  .history-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+    transition: all 0.25s ease;
+  }
+  .history-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -3px rgba(0,0,0,0.08);
+    border-color: #fdba74;
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .card-date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #64748b; }
+  .card-subject { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .card-body {
+    background: #f8fafc; border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; line-height: 1.5; color: #334155; margin-bottom: 12px;
+    max-height: 120px; overflow-y: auto; border: 1px solid #f1f5f9;
+  }
+  .card-foot {
+    display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #64748b;
+  }
 
-  .custom-textarea {
-    width: 100%; min-height: 170px; border: 1px solid var(--border-strong);
-    border-radius: 8px; padding: 12px 14px; font-size: 14px; outline: none;
-    line-height: 1.6; resize: vertical;
+  /* ================= MODAL FOR CUSTOM WRITING ================= */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 16px;
+    animation: modalBgEnter 0.2s ease-out;
   }
-  .custom-textarea:focus {
-    border-color: var(--custom-purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
-  }
-  .modal-foot {
-    padding: 14px 22px; background: #fafafa; border-top: 1px solid var(--border);
-    display: flex; justify-content: flex-end; gap: 10px;
-  }
-  .btn-cancel {
-    padding: 9px 18px; border-radius: 6px; font-size: 13.5px; font-weight: 600;
-    color: var(--ink-light); background: #f1f5f9;
-  }
-  .btn-save-custom {
-    padding: 9px 22px; border-radius: 6px; font-size: 13.5px; font-weight: 600;
-    background: var(--custom-purple); color: #fff; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .btn-save-custom:hover { background: #6d28d9; }
+  @keyframes modalBgEnter { from { opacity: 0; } to { opacity: 1; } }
 
-  /* Toast */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: #0f172a; color: #fff; padding: 11px 22px; border-radius: 30px;
-    font-size: 13.5px; box-shadow: 0 10px 20px rgba(0,0,0,0.25); z-index: 120;
-    display: flex; align-items: center; gap: 8px;
+  .custom-editor-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 580px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    animation: modalScale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
+  @keyframes modalScale {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .editor-header {
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .editor-header h4 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .close-btn { font-size: 24px; cursor: pointer; line-height: 1; }
+
+  .editor-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  
+  .quick-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .quick-chip {
+    background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 14px;
+    padding: 3px 10px; font-size: 11.5px; font-weight: 600; cursor: pointer; transition: 0.15s;
+  }
+  .quick-chip:hover { background: #ea580c; color: #fff; border-color: #ea580c; }
+
+  .editor-textarea {
+    width: 100%;
+    min-height: 180px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+  }
+  .editor-textarea:focus {
+    border-color: #ea580c;
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+  }
+
+  .editor-footer {
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .btn-editor-cancel {
+    background: #e2e8f0; color: #475569; padding: 8px 18px; border-radius: 6px; font-weight: 600;
+  }
+  .btn-editor-save {
+    background: #ea580c; color: #fff; padding: 8px 22px; border-radius: 6px; font-weight: 700;
+    box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
+  }
+  .btn-editor-save:hover { background: #c2410c; }
+
+  /* Notification Toast */
+  .toast-box {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #0f172a; color: #fff; padding: 12px 22px;
+    border-radius: 10px; font-size: 13.5px; font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 200; display: flex; align-items: center; gap: 8px;
+    animation: toastSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes toastSlide { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .full-loading {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100vh; gap: 12px; color: #64748b; font-size: 14px;
+  }
+  .spinner-circle {
+    width: 38px; height: 38px; border: 3px solid #e2e8f0;
+    border-top-color: #ea580c; border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<div id="loading" class="page-loading">
-  <div class="spinner"></div>
+<div id="page-loading" class="full-loading">
+  <div class="spinner-circle"></div>
   <span>সিস্টেম লোড হচ্ছে…</span>
 </div>
 
-<!-- ================= LOGIN / SIGNUP ================= -->
-<div id="login-screen" class="login-shell hidden">
+<!-- ================= 1. UNIQUE LOGIN SCREEN ================= -->
+<div id="login-screen" class="login-wrapper hidden">
   <div class="login-card">
-    <div class="login-logo">
-      <div class="icon-box">✓</div>
-      <h1>DAILY WORK</h1>
-      <p>স্টাফ ওয়ার্ক ম্যানেজমেন্ট পোর্টাল</p>
+    <div class="login-brand">
+      <div class="logo-cube">✓</div>
+      <h2>DAILY WORK PORTAL</h2>
+      <p>স্টাফ কাজের ট্র্যাকার ও হিস্ট্রি ম্যানেজমেন্ট</p>
     </div>
 
-    <div class="auth-toggle">
+    <div class="tab-pill-box">
       <button type="button" id="tab-login" class="active">লগইন</button>
-      <button type="button" id="tab-signup">নতুন অ্যাকাউন্ট</button>
+      <button type="button" id="tab-signup">নতুন একাউন্ট</button>
     </div>
 
-    <div id="login-error" class="banner error hidden"></div>
+    <div id="login-error" style="background:#fee2e2;color:#b91c1c;padding:10px;border-radius:8px;font-size:12.5px;margin-bottom:14px;" class="hidden"></div>
 
     <form id="login-form">
-      <div class="field"><label>ইমেইল এড্রেস</label><input type="email" id="login-email" required placeholder="name@example.com" /></div>
-      <div class="field"><label>পাসওয়ার্ড</label><input type="password" id="login-password" required placeholder="••••••••" /></div>
-      <button class="btn-solid" type="submit" id="login-btn">লগইন করুন</button>
+      <div class="form-group">
+        <label>ইমেইল এড্রেস</label>
+        <input type="email" id="login-email" placeholder="name@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>পাসওয়ার্ড</label>
+        <input type="password" id="login-password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn-submit-login" id="login-submit-btn">লগইন করুন</button>
     </form>
 
     <form id="signup-form" class="hidden">
-      <div class="field"><label>আপনার পুরো নাম</label><input type="text" id="signup-name" required placeholder="উদাঃ মোঃ রহিম" /></div>
-      <div class="field"><label>ইমেইল এড্রেস</label><input type="email" id="signup-email" required placeholder="name@example.com" /></div>
-      <div class="field"><label>পাসওয়ার্ড (কমপক্ষে ৬ ডিজিট)</label><input type="password" id="signup-password" minlength="6" required placeholder="••••••••" /></div>
-      <button class="btn-solid" type="submit" id="signup-btn">রেজিস্টার করুন</button>
+      <div class="form-group">
+        <label>আপনার পুরো নাম</label>
+        <input type="text" id="signup-name" placeholder="উদাঃ জয়ন্ত" required />
+      </div>
+      <div class="form-group">
+        <label>ইমেইল এড্রেস</label>
+        <input type="email" id="signup-email" placeholder="name@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>পাসওয়ার্ড (কমপক্ষে ৬ ডিজিট)</label>
+        <input type="password" id="signup-password" minlength="6" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn-submit-login" id="signup-submit-btn">একাউন্ট তৈরি করুন</button>
     </form>
   </div>
 </div>
 
-<!-- ================= MAIN APP ================= -->
+<!-- ================= 2. MAIN APP ================= -->
 <div id="app-screen" class="hidden">
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <div class="logo-badge">✓</div>
-      <span class="nav-title">DAILY WORK TRACKER</span>
-      
-      <div class="view-switcher">
-        <button type="button" class="view-btn active" id="btn-view-sheet">📊 শিট ভিউ (Live Sheet)</button>
-        <button type="button" class="view-btn" id="btn-view-history">🕒 Daily Work History (কাজের ইতিহাস)</button>
+  <!-- Clean Top Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="badge-icon">田</div>
+      <span class="app-title">DAILY WORK TRACKER</span>
+
+      <!-- Navigation Tabs -->
+      <div class="top-nav-tabs">
+        <button type="button" class="nav-tab-btn active" id="btn-sheet-view">📊 শিট ভিউ (Sheet)</button>
+        <button type="button" class="nav-tab-btn" id="btn-history-view">📜 কাজের হিস্ট্রি (History)</button>
       </div>
     </div>
 
-    <div class="nav-right">
-      <div class="user-badge">
-        <span class="user-avatar" id="avatar-initial">U</span>
-        <span class="user-name" id="user-name">ইউজার</span>
+    <div class="header-right">
+      <div class="user-info-pill">
+        <span class="user-dot"></span>
+        <span id="display-user-name">User</span>
       </div>
-      <button id="logout-btn" class="btn-logout">লগআউট</button>
+      <button type="button" class="btn-logout" id="btn-logout">লগআউট</button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Metrics Bar -->
-  <div class="metrics-bar" id="metrics-bar">
-    <div class="metric-card"><div class="val" id="stat-total">0</div><div class="lbl">মোট এন্ট্রি</div></div>
-    <div class="metric-card"><div class="val" id="stat-pending" style="color:#dc2626">0</div><div class="lbl">PENDING REVIEW</div></div>
-    <div class="metric-card"><div class="val" id="stat-review" style="color:#d97706">0</div><div class="lbl">IN REVIEW</div></div>
-    <div class="metric-card"><div class="val" id="stat-complete" style="color:#16a34a">0</div><div class="lbl">COMPLETE</div></div>
-    <div class="metric-card"><div class="val" id="stat-hours" style="color:#2563eb">0</div><div class="lbl">মোট কাজের ঘণ্টা</div></div>
-  </div>
-
-  <!-- VIEW 1: LIVE GOOGLE SHEET STYLE TABLE -->
-  <div id="sheet-view-section" class="sheet-container">
-    <div id="submit-error" class="banner error hidden" style="margin:14px 20px 0;"></div>
-    
+  <!-- VIEW A: SPREADSHEET VIEW -->
+  <main id="view-sheet-section" class="table-viewport">
     <table class="sheet-table">
       <thead>
-        <tr class="col-letters">
-          <th>#</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th>
-        </tr>
-        <!-- Serial-wise professional headers -->
-        <tr class="col-names">
-          <th class="c-sl">SL</th>
-          <th class="c-date">Start Date</th>
-          <th class="c-date">End Date</th>
-          <th class="c-type">Work Type</th>
-          <th class="c-subject">Work / Edit Subject</th>
-          <th class="c-time">Daily Hours</th>
-          <th class="c-time">Edit Time M/S</th>
-          <th class="c-calc">Total Days</th>
-          <th class="c-calc">Total Hours</th>
-          <th class="c-status">Status</th>
-          <th class="c-task">Finish Task</th>
-          <th class="c-custom">Daily Work History (কাস্টম)</th>
-          <th class="c-rating">Monthly Rating</th>
+        <!-- EXACT COLUMN SERIAL AND COLORS AS IN SCREENSHOT -->
+        <tr>
+          <th class="c-sl">JKT ⌵</th>
+          <th class="c-start">Start date ⌵</th>
+          <th class="c-history">Daily Work history & Time ⌵</th>
+          <th class="c-status1">Status ⌵</th>
+          <th class="c-subject">Edite Subject ⌵</th>
+          <th class="c-edittime">Edite Time M/S ⌵</th>
+          <th class="c-status2">Status ⌵</th>
+          <th class="c-end">End date ⌵</th>
+          <th class="c-days">Total Day,s ⌵</th>
+          <th class="c-totedit">Total Edite Time ⌵</th>
+          <th class="c-tothour">Total hour,s ⌵</th>
+          <th class="c-opinion">Person Openion ⌵</th>
         </tr>
       </thead>
       <tbody id="sheet-body">
-        <!-- Live Form Input Row (Placed prominently as row #1) -->
-        <tr class="input-row">
-          <td class="sl-num">NEW</td>
-          <td><input type="date" id="f-start" /></td>
-          <td><input type="date" id="f-end" /></td>
+        
+        <!-- Live Form Input Row (Row #1) -->
+        <tr class="input-entry-row">
+          <td class="c-sl-val">NEW</td>
+          <!-- A: Start date -->
+          <td><input type="date" id="in-start-date" /></td>
+          <!-- B: Daily Work history & Time (Custom System) -->
           <td>
-            <select id="f-worktype">
-              <option>Video Editing</option>
-              <option>Graphics Design</option>
-              <option>Content Writing</option>
-              <option>Voice Over</option>
-              <option>Web Dev</option>
-              <option>অন্যান্য কাজ</option>
+            <div class="custom-history-trigger" id="btn-open-custom-input">
+              <span class="history-text" id="preview-custom-text">Web browsing 5h + soft intall 2h + edit...</span>
+              <span class="badge-write">✍️ কাস্টম লিখুন</span>
+            </div>
+          </td>
+          <!-- C: Status 1 -->
+          <td>
+            <select id="in-status1">
+              <option value="Complete">Complete</option>
+              <option value="On track" selected>On track</option>
+              <option value="Pending">Pending</option>
             </select>
           </td>
-          <td><input type="text" id="f-subject" placeholder="কাজের বিষয়বস্তু লিখুন..." /></td>
-          <td><input type="number" step="0.5" id="f-hours" placeholder="ঘণ্টা (উদাঃ ৬)" /></td>
-          <td><input type="number" step="0.1" id="f-edittime" placeholder="M/S (উদাঃ ২.৫)" /></td>
-          <td style="color:#94a3b8;text-align:center;">—</td>
-          <td style="color:#94a3b8;text-align:center;">—</td>
-          <td><span class="badge badge-pending">Pending Review</span></td>
-          <td><input type="text" id="f-finishtask" placeholder="সম্পন্ন কাজের বিবরণ" /></td>
-          <td style="color:#94a3b8;font-size:12px">সাবমিটের পর কাস্টম লিখুন ✍️</td>
-          <td style="color:#94a3b8;text-align:center;">—</td>
+          <!-- D: Edite Subject -->
+          <td>
+            <input type="text" id="in-subject" placeholder="গ্রাম-ডাক্তার" value="গ্রাম-ডাক্তার" />
+          </td>
+          <!-- E: Edite Time M/S -->
+          <td><input type="number" step="0.1" id="in-edittime" placeholder="0.2.5" value="0.2.5" /></td>
+          <!-- F: Status 2 -->
+          <td>
+            <select id="in-status2">
+              <option value="On track" selected>On track</option>
+              <option value="Complete">Complete</option>
+              <option value="Delay">Delay</option>
+            </select>
+          </td>
+          <!-- G: End date -->
+          <td><input type="date" id="in-end-date" /></td>
+          <!-- H: Total Day,s -->
+          <td id="live-days" style="text-align:center;font-weight:600;color:#64748b">—</td>
+          <!-- I: Total Edite Time -->
+          <td id="live-totedit" style="text-align:center;font-weight:600;color:#64748b">—</td>
+          <!-- J: Total hour,s -->
+          <td id="live-tothour" style="text-align:center;font-weight:600;color:#64748b">—</td>
+          <!-- K: Person Openion -->
+          <td><input type="text" id="in-opinion" placeholder="মতামত..." /></td>
         </tr>
-        <tr class="action-submit-row">
-          <td colspan="13">
-            <button type="button" id="submit-btn" class="btn-submit-entry">
-              <span>+ নতুন এন্ট্রি শিটে সংরক্ষণ করুন</span>
+
+        <!-- Submit Button Row with Clean Animation -->
+        <tr class="submit-row">
+          <td colspan="12">
+            <button type="button" id="btn-save-record" class="btn-submit-action">
+              <span>💾 শিটে নতুন রেকর্ড সংরক্ষণ করুন</span>
             </button>
           </td>
         </tr>
-        <!-- Entries will be dynamically injected here -->
+
+        <!-- Data Rows dynamically populated here -->
       </tbody>
     </table>
-  </div>
+  </main>
 
-  <!-- VIEW 2: DEDICATED DAILY WORK HISTORY SECTION -->
-  <div id="history-view-section" class="history-container hidden">
-    <div class="history-header">
+  <!-- VIEW B: DEDICATED HISTORY VIEW -->
+  <main id="view-history-section" class="history-wrapper hidden">
+    <div class="history-header-box">
       <div>
-        <h2>Daily Work History (কাজের বিস্তারিত ইতিহাস)</h2>
-        <p style="color:var(--ink-light);font-size:13px;margin-top:2px;">সকল কাজের রেকর্ড ও কাস্টম নোটস ম্যানেজমেন্ট</p>
+        <h3>📜 Daily Work History (কাজের বিস্তারিত ইতিহাস)</h3>
+        <p style="font-size:13px;color:#64748b;">সকল কাস্টম নোট ও পূর্বের কাজের তালিকা</p>
       </div>
-      <input type="text" id="history-search" class="search-box" placeholder="বিষয় বা কাজ দিয়ে সার্চ করুন..." />
+      <input type="text" id="history-search" class="search-input" placeholder="কাজের বিষয় বা হিস্ট্রি খুঁজুন..." />
     </div>
-    
-    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.02)">
-      <table style="width:100%;border-collapse:collapse;font-size:13.5px;text-align:left;">
-        <thead>
-          <tr style="background:#f8fafc;border-bottom:1px solid var(--border);color:var(--ink-light);font-size:12px;">
-            <th style="padding:12px 16px;">SL</th>
-            <th style="padding:12px 16px;">তারিখ</th>
-            <th style="padding:12px 16px;">কাজের ধরন ও বিষয়</th>
-            <th style="padding:12px 16px;">কাজের সময়</th>
-            <th style="padding:12px 16px;">স্ট্যাটাস</th>
-            <th style="padding:12px 16px;">Daily Work History (কাস্টম নোট)</th>
-            <th style="padding:12px 16px;">রেটিং</th>
-          </tr>
-        </thead>
-        <tbody id="history-list-body">
-          <!-- Populated by JS -->
-        </tbody>
-      </table>
+
+    <div class="history-card-grid" id="history-cards-container">
+      <!-- Injected by JavaScript -->
     </div>
-  </div>
+  </main>
 
 </div>
 
-<!-- ================= CUSTOM WORK HISTORY MODAL ================= -->
-<div id="custom-modal" class="modal-overlay hidden">
-  <div class="custom-modal">
-    <div class="modal-head">
-      <h3><span>✍️</span> Daily Work History — কাস্টম বিবরণ</h3>
-      <span class="btn-close" id="btn-close-modal">&times;</span>
+<!-- ================= 3. CUSTOM DAILY WORK HISTORY MODAL ================= -->
+<div id="modal-custom-editor" class="modal-overlay hidden">
+  <div class="custom-editor-modal">
+    <div class="editor-header">
+      <h4><span>✍️</span> Daily Work history & Time — কাস্টম লিখুন</h4>
+      <span class="close-btn" id="btn-close-editor">&times;</span>
     </div>
-    <div class="modal-body">
-      <div class="meta-pills">
-        <div><span>বিষয়:</span> <strong id="modal-meta-subject">-</strong></div>
-        <div><span>ধরন:</span> <strong id="modal-meta-type">-</strong></div>
-        <div><span>তারিখ:</span> <strong id="modal-meta-date">-</strong></div>
+
+    <div class="editor-body">
+      <div style="font-size:12.5px;color:#64748b;">কুইক সাজেশন নির্বাচন করতে পারেন অথবা নিচে সরাসরি লিখুন:</div>
+      
+      <div class="quick-chips">
+        <span class="quick-chip" data-val="Web browsing 5h + soft intall 2h + edit...">🌐 Browsing 5h + soft intall 2h + edit</span>
+        <span class="quick-chip" data-val="Editing">🎬 Editing</span>
+        <span class="quick-chip" data-val="Voice Sync & Sound Design">🔊 Voice & Sound Design</span>
+        <span class="quick-chip" data-val="Color Grading & Export">🎨 Color & Export</span>
       </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <label style="font-size:13px;font-weight:600;color:var(--ink)">কাস্টম তথ্য / কাজের বিস্তারিত নোট লিখুন:</label>
-        <textarea id="modal-custom-text" class="custom-textarea" placeholder="এখানে এই কাজ সম্পর্কে আপনার মতামত, ক্লায়েন্টের বিশেষ চাহিদা, কাজের অগ্রগতি বা কাস্টম হিস্ট্রি লিখুন..."></textarea>
-      </div>
+
+      <textarea id="editor-textarea" class="editor-textarea" placeholder="এখানে আপনার কাজের বিস্তারিত কাস্টম ইতিহাস ও সময় লিখুন..."></textarea>
     </div>
-    <div class="modal-foot">
-      <button type="button" class="btn-cancel" id="btn-cancel-modal">বাতিল</button>
-      <button type="button" class="btn-save-custom" id="btn-save-custom">✓ কাস্টম নোট সেভ করুন</button>
+
+    <div class="editor-footer">
+      <button type="button" class="btn-editor-cancel" id="btn-cancel-editor">বাতিল</button>
+      <button type="button" class="btn-editor-save" id="btn-confirm-editor">✓ কাস্টম টেক্সট সংরক্ষণ করুন</button>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast hidden"></div>
+<div id="toast" class="toast-box hidden"></div>
 
-<!-- ================= FIREBASE & APP LOGIC ================= -->
+<!-- ================= 4. FIREBASE SCRIPT & LOGIC ================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
@@ -530,7 +713,7 @@ import {
   updateProfile, signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp
+  getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, onSnapshot, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -549,27 +732,22 @@ const db = getFirestore(app);
 const $ = (id) => document.getElementById(id);
 
 let currentEntries = [];
-let activeEditingEntryId = null;
+let activeModalRecordId = null; 
+let currentUserRole = "staff";
 
-/* Helper Calculations */
-function calcTotalDays(start, end) {
+function calcDays(start, end) {
   if (!start || !end) return null;
   const d = Math.round((new Date(end) - new Date(start)) / 86400000) + 1;
-  return d > 0 ? d : null;
+  return d > 0 ? d : 1;
 }
-function mult(val, days) {
-  if (!val || !days) return "—";
-  return (parseFloat(val) * days).toFixed(1);
-}
+
 function formatDate(d) {
-  if (!d) return "—";
-  return new Date(d).toLocaleDateString("en-GB");
+  if (!d) return "dd/mm/yyyy";
+  const parts = d.split("-");
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return d;
 }
-function statusBadge(status) {
-  if (status === "Complete") return `<span class="badge badge-complete">● Complete</span>`;
-  if (status === "In Review") return `<span class="badge badge-review">● In Review</span>`;
-  return `<span class="badge badge-pending">● Pending</span>`;
-}
+
 function showToast(msg) {
   const t = $("toast");
   t.innerHTML = `<span>✓</span> ${msg}`;
@@ -578,7 +756,7 @@ function showToast(msg) {
   showToast._t = setTimeout(() => t.classList.add("hidden"), 3000);
 }
 
-/* Authentication Tab Switching */
+// Authentication Tabs
 $("tab-login").addEventListener("click", () => {
   $("tab-login").classList.add("active");
   $("tab-signup").classList.remove("active");
@@ -594,24 +772,25 @@ $("tab-signup").addEventListener("click", () => {
   $("login-error").classList.add("hidden");
 });
 
-/* View Switching (Sheet vs Dedicated History) */
-$("btn-view-sheet").addEventListener("click", () => {
-  $("btn-view-sheet").classList.add("active");
-  $("btn-view-history").classList.remove("active");
-  $("sheet-view-section").classList.remove("hidden");
-  $("history-view-section").classList.add("hidden");
+// Switch Views
+$("btn-sheet-view").addEventListener("click", () => {
+  $("btn-sheet-view").classList.add("active");
+  $("btn-history-view").classList.remove("active");
+  $("view-sheet-section").classList.remove("hidden");
+  $("view-history-section").classList.add("hidden");
 });
-$("btn-view-history").addEventListener("click", () => {
-  $("btn-view-history").classList.add("active");
-  $("btn-view-sheet").classList.remove("active");
-  $("history-view-section").classList.remove("hidden");
-  $("sheet-view-section").classList.add("hidden");
+$("btn-history-view").addEventListener("click", () => {
+  $("btn-history-view").classList.add("active");
+  $("btn-sheet-view").classList.remove("active");
+  $("view-history-section").classList.remove("hidden");
+  $("view-sheet-section").classList.add("hidden");
+  renderHistoryView(currentEntries);
 });
 
-/* Auth Observer */
+// Auth State Observer
 let unsub = null;
 onAuthStateChanged(auth, async (user) => {
-  $("loading").classList.add("hidden");
+  $("page-loading").classList.add("hidden");
   if (!user) {
     $("app-screen").classList.add("hidden");
     $("login-screen").classList.remove("hidden");
@@ -619,259 +798,278 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  let profile = { name: user.displayName || user.email };
+  let profileName = user.displayName || user.email;
   try {
     const s = await getDoc(doc(db, "users", user.uid));
-    if (s.exists()) profile = s.data();
+    if (s.exists()) {
+      const data = s.data();
+      if (data.name) profileName = data.name;
+      if (data.role) currentUserRole = data.role;
+    }
   } catch (e) { console.error(e); }
 
   $("login-screen").classList.add("hidden");
   $("app-screen").classList.remove("hidden");
-  
-  const name = profile.name || user.email;
-  $("user-name").textContent = name;
-  $("avatar-initial").textContent = name.trim().charAt(0).toUpperCase();
+  $("display-user-name").textContent = `${profileName} (${currentUserRole === 'admin' ? 'এডমিন' : 'স্টাফ'})`;
 
-  // Load live entries
-  const q = query(collection(db, "entries"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+  // Realtime Query: (Composite index bypass: we sort in JS to ensure 100% instant display)
+  let q;
+  if (currentUserRole === "admin") {
+    q = collection(db, "entries");
+  } else {
+    q = query(collection(db, "entries"), where("uid", "==", user.uid));
+  }
+
   unsub = onSnapshot(q, (snapshot) => {
     currentEntries = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    updateDashboard(currentEntries);
-    renderSheetTable(currentEntries);
-    renderHistoryTable(currentEntries);
+    
+    // Sort descending by timestamp in JS (eliminates Firestore Missing Index errors)
+    currentEntries.sort((a, b) => {
+      const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : 0;
+      const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : 0;
+      return timeB - timeA;
+    });
+
+    renderSheetView(currentEntries);
+    renderHistoryView(currentEntries);
+  }, (err) => {
+    console.error("Firestore query error:", err);
+    showToast("ডেটা লোড করতে সমস্যা হয়েছে!");
   });
 });
 
-/* Render Live Sheet */
-function renderSheetTable(entries) {
-  const body = $("sheet-body");
-  const inputRow = body.querySelector("tr.input-row");
-  const submitRow = body.querySelector("tr.action-submit-row");
-  body.innerHTML = "";
-  body.appendChild(inputRow);
-  body.appendChild(submitRow);
+// Render Spreadsheet
+function renderSheetView(entries) {
+  const tbody = $("sheet-body");
+  const inputRow = tbody.querySelector("tr.input-entry-row");
+  const submitRow = tbody.querySelector("tr.submit-row");
+  
+  tbody.innerHTML = "";
+  tbody.appendChild(inputRow);
+  tbody.appendChild(submitRow);
 
-  let sl = 1;
+  let sl = 2; // Matches screenshot row numbers
   entries.forEach((e) => {
-    const days = calcTotalDays(e.startDate, e.endDate);
-    const totalHours = mult(e.dailyHours, days);
-    const hasCustom = Boolean(e.customNotes && e.customNotes.trim());
-    
+    const days = calcDays(e.startDate, e.endDate);
+    const totEdit = (e.editTime && days) ? (parseFloat(e.editTime) * days).toFixed(1) : (e.editTime || "—");
+    const totHours = days ? (days * 8) : "—";
+
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td class="sl-num">${sl++}</td>
-      <td>${formatDate(e.startDate)}</td>
-      <td>${formatDate(e.endDate)}</td>
-      <td><strong>${e.workType || "—"}</strong></td>
-      <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis" title="${e.subject || ""}">${e.subject || "—"}</td>
-      <td>${e.dailyHours ? e.dailyHours + " hrs" : "—"}</td>
-      <td>${e.editTime || "—"}</td>
-      <td style="text-align:center">${days ?? "—"}</td>
-      <td style="text-align:center;font-weight:600">${totalHours}</td>
-      <td>${statusBadge(e.status)}</td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${e.finishTask || "—"}</td>
+      <td class="c-sl-val">${sl++}</td>
+      <td><span class="pill pill-date">${formatDate(e.startDate)} ⌵</span></td>
       <td>
-        <button type="button" class="btn-custom-action ${hasCustom ? 'has-data' : ''}" data-id="${e.id}">
-          <span>${hasCustom ? '📝' : '✍️'}</span>
-          <span>${hasCustom ? 'কাস্টম দেখুন/এডিট' : 'কাস্টম লিখুন'}</span>
-        </button>
+        <div class="custom-history-trigger" data-id="${e.id}" title="কাস্টম ইতিহাস এডিট করতে ক্লিক করুন">
+          <span class="history-text">${e.workHistory || "Editing"}</span>
+          <span class="badge-write">✍️ কাস্টম</span>
+        </div>
       </td>
-      <td style="text-align:center">${e.monthlyRating ? `<span class="badge badge-rating">${e.monthlyRating}</span>` : "—"}</td>
+      <td><span class="pill ${e.status1 === 'Complete' ? 'pill-green' : 'pill-orange'}">${e.status1 || 'On track'} ⌵</span></td>
+      <td><span class="pill pill-maroon">${e.subject || 'গ্রাম-ডাক্তার'} ⌵</span></td>
+      <td style="text-align:right;font-weight:600">${e.editTime || '—'}</td>
+      <td><span class="pill ${e.status2 === 'Complete' ? 'pill-green' : 'pill-orange'}">${e.status2 || 'On track'} ⌵</span></td>
+      <td><span class="pill pill-date">${formatDate(e.endDate)} ⌵</span></td>
+      <td style="text-align:center;font-weight:600">${days ?? '—'}</td>
+      <td style="text-align:center;font-weight:600">${totEdit}</td>
+      <td style="text-align:center;font-weight:600">${totHours}</td>
+      <td style="color:#be185d;font-weight:600">${e.opinion || ''}</td>
     `;
-    body.appendChild(tr);
+    tbody.appendChild(tr);
   });
 
-  // Attach modal trigger on buttons
-  body.querySelectorAll(".btn-custom-action").forEach(btn => {
-    btn.addEventListener("click", () => openCustomModal(btn.getAttribute("data-id")));
+  tbody.querySelectorAll(".custom-history-trigger[data-id]").forEach(box => {
+    box.addEventListener("click", () => openCustomEditor(box.getAttribute("data-id")));
   });
 }
 
-/* Render Dedicated History View */
-function renderHistoryTable(entries) {
-  const body = $("history-list-body");
-  body.innerHTML = "";
+// Render Dedicated History View
+function renderHistoryView(entries) {
+  const container = $("history-cards-container");
+  container.innerHTML = "";
 
   if (entries.length === 0) {
-    body.innerHTML = `<tr><td colspan="7" style="padding:28px;text-align:center;color:var(--ink-light)">কোনো কাজের হিস্ট্রি পাওয়া যায়নি</td></tr>`;
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color:#94a3b8; padding: 40px; font-size:15px;">কোনো কাজের হিস্ট্রি পাওয়া যায়নি। নতুন রেকর্ড যোগ করুন।</div>`;
     return;
   }
 
-  let sl = 1;
   entries.forEach(e => {
-    const hasCustom = Boolean(e.customNotes && e.customNotes.trim());
-    const tr = document.createElement("tr");
-    tr.style.borderBottom = "1px solid var(--border)";
-    tr.innerHTML = `
-      <td style="padding:12px 16px;font-family:var(--font-mono);font-size:12px;color:var(--ink-light)">${sl++}</td>
-      <td style="padding:12px 16px;">${formatDate(e.startDate)} - ${formatDate(e.endDate)}</td>
-      <td style="padding:12px 16px;">
-        <div style="font-weight:600;color:var(--ink)">${e.subject || "—"}</div>
-        <div style="font-size:12px;color:var(--ink-light)">${e.workType || "—"}</div>
-      </td>
-      <td style="padding:12px 16px;font-weight:600">${e.dailyHours || 0} ঘণ্টা/দিন</td>
-      <td style="padding:12px 16px">${statusBadge(e.status)}</td>
-      <td style="padding:12px 16px">
-        <button type="button" class="btn-custom-action ${hasCustom ? 'has-data' : ''}" data-id="${e.id}">
-          <span>${hasCustom ? '📝' : '✍️'}</span>
-          <span>${hasCustom ? 'নোট ওপেন করুন' : 'কাস্টম লিখুন'}</span>
-        </button>
-      </td>
-      <td style="padding:12px 16px">${e.monthlyRating ? `<span class="badge badge-rating">${e.monthlyRating}</span>` : "—"}</td>
+    const days = calcDays(e.startDate, e.endDate);
+    const card = document.createElement("div");
+    card.className = "history-card";
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-date">📅 ${formatDate(e.startDate)} → ${formatDate(e.endDate)}</span>
+        <span class="pill ${e.status1 === 'Complete' ? 'pill-green' : 'pill-orange'}">${e.status1 || 'On track'}</span>
+      </div>
+      <div class="card-subject">${e.subject || "কাজের বিষয়বস্তু"}</div>
+      <div class="card-body">
+        <strong style="color:#ea580c">Daily Work History:</strong><br/>
+        ${e.workHistory || "নোট লেখা হয়নি"}
+      </div>
+      <div class="card-foot">
+        <span>⏱️ সময়: ${e.editTime || '0'} M/S (মোট: ${days ? days * 8 : 0} ঘণ্টা)</span>
+        <button type="button" class="badge-write" data-id="${e.id}">✍️ এডিট</button>
+      </div>
     `;
-    body.appendChild(tr);
+    container.appendChild(card);
   });
 
-  body.querySelectorAll(".btn-custom-action").forEach(btn => {
-    btn.addEventListener("click", () => openCustomModal(btn.getAttribute("data-id")));
+  container.querySelectorAll("button[data-id]").forEach(btn => {
+    btn.addEventListener("click", () => openCustomEditor(btn.getAttribute("data-id")));
   });
 }
 
-/* Live Search in History View */
+// Search History
 $("history-search").addEventListener("input", (e) => {
-  const term = e.target.value.toLowerCase().trim();
+  const q = e.target.value.toLowerCase().trim();
   const filtered = currentEntries.filter(item => 
-    (item.subject && item.subject.toLowerCase().includes(term)) ||
-    (item.workType && item.workType.toLowerCase().includes(term)) ||
-    (item.customNotes && item.customNotes.toLowerCase().includes(term))
+    (item.subject && item.subject.toLowerCase().includes(q)) ||
+    (item.workHistory && item.workHistory.toLowerCase().includes(q)) ||
+    (item.opinion && item.opinion.toLowerCase().includes(q))
   );
-  renderHistoryTable(filtered);
+  renderHistoryView(filtered);
 });
 
-/* Dashboard Cards Counter */
-function updateDashboard(entries) {
-  const pending = entries.filter(e => e.status === "Pending Review").length;
-  const review = entries.filter(e => e.status === "In Review").length;
-  const complete = entries.filter(e => e.status === "Complete").length;
-  const totalHrs = entries.reduce((sum, e) => {
-    const days = calcTotalDays(e.startDate, e.endDate);
-    const hrs = mult(e.dailyHours, days);
-    return sum + (hrs !== "—" ? parseFloat(hrs) : 0);
-  }, 0);
+// Custom Modal Controls
+function openCustomEditor(id = null) {
+  activeModalRecordId = id;
+  const textarea = $("editor-textarea");
 
-  $("stat-total").textContent = entries.length;
-  $("stat-pending").textContent = pending;
-  $("stat-review").textContent = review;
-  $("stat-complete").textContent = complete;
-  $("stat-hours").textContent = totalHrs.toFixed(1);
-}
-
-/* ================= CUSTOM WORK HISTORY MODAL LOGIC ================= */
-function openCustomModal(entryId) {
-  const entry = currentEntries.find(e => e.id === entryId);
-  if (!entry) return;
-
-  activeEditingEntryId = entryId;
-  $("modal-meta-subject").textContent = entry.subject || "Untitled";
-  $("modal-meta-type").textContent = entry.workType || "Standard";
-  $("modal-meta-date").textContent = `${formatDate(entry.startDate)} — ${formatDate(entry.endDate)}`;
-  $("modal-custom-text").value = entry.customNotes || "";
-
-  $("custom-modal").classList.remove("hidden");
-  $("modal-custom-text").focus();
-}
-
-function closeCustomModal() {
-  $("custom-modal").classList.add("hidden");
-  activeEditingEntryId = null;
-}
-$("btn-close-modal").addEventListener("click", closeCustomModal);
-$("btn-cancel-modal").addEventListener("click", closeCustomModal);
-
-// Save custom writing directly to Firestore
-$("btn-save-custom").addEventListener("click", async () => {
-  if (!activeEditingEntryId) return;
-  const text = $("modal-custom-text").value.trim();
-  const saveBtn = $("btn-save-custom");
-  saveBtn.disabled = true;
-  saveBtn.textContent = "সেভ হচ্ছে...";
-
-  try {
-    await updateDoc(doc(db, "entries", activeEditingEntryId), {
-      customNotes: text,
-      updatedAt: serverTimestamp()
-    });
-    showToast("কাস্টম বিবরণ সফলভাবে সংরক্ষিত হয়েছে!");
-    closeCustomModal();
-  } catch (err) {
-    console.error(err);
-    alert("নোট সেভ করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-  } finally {
-    saveBtn.disabled = false;
-    saveBtn.innerHTML = "✓ কাস্টম নোট সেভ করুন";
+  if (id) {
+    const record = currentEntries.find(r => r.id === id);
+    textarea.value = record ? (record.workHistory || "") : "";
+  } else {
+    textarea.value = $("preview-custom-text").textContent || "";
   }
+
+  $("modal-custom-editor").classList.remove("hidden");
+  textarea.focus();
+}
+
+function closeCustomEditor() {
+  $("modal-custom-editor").classList.add("hidden");
+  activeModalRecordId = null;
+}
+
+$("btn-close-editor").addEventListener("click", closeCustomEditor);
+$("btn-cancel-editor").addEventListener("click", closeCustomEditor);
+
+document.querySelectorAll(".quick-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    const v = chip.getAttribute("data-val");
+    const current = $("editor-textarea").value.trim();
+    $("editor-textarea").value = current ? `${current} + ${v}` : v;
+  });
 });
 
-/* ================= SUBMIT NEW ENTRY ================= */
-async function submitNewEntry() {
-  $("submit-error").classList.add("hidden");
-  const start = $("f-start").value;
-  const end = $("f-end").value;
-  const hours = $("f-hours").value;
-  const subject = $("f-subject").value.trim();
-  const workType = $("f-worktype").value;
-  const editTime = $("f-edittime").value;
-  const finishTask = $("f-finishtask").value.trim();
+$("btn-open-custom-input").addEventListener("click", () => openCustomEditor(null));
 
-  if (!start || !end || !hours || !subject) {
-    $("submit-error").textContent = "অনুগ্রহ করে শুরুর তারিখ, শেষ তারিখ, কাজের বিষয় এবং দৈনিক ঘণ্টা পূরণ করুন।";
-    $("submit-error").classList.remove("hidden");
+$("btn-confirm-editor").addEventListener("click", async () => {
+  const content = $("editor-textarea").value.trim() || "Editing";
+
+  if (activeModalRecordId) {
+    try {
+      await updateDoc(doc(db, "entries", activeModalRecordId), {
+        workHistory: content,
+        updatedAt: serverTimestamp()
+      });
+      showToast("কাস্টম ইতিহাস সফলভাবে আপডেট হয়েছে!");
+    } catch (err) {
+      console.error(err);
+      alert("আপডেট করতে ব্যর্থ হয়েছে। ফায়ারবেজ রুলস চেক করুন।");
+    }
+  } else {
+    $("preview-custom-text").textContent = content;
+    showToast("কাস্টম বিবরণ যোগ করা হয়েছে!");
+  }
+  closeCustomEditor();
+});
+
+// Live Calculations on New Input Row
+function updateLivePreview() {
+  const start = $("in-start-date").value;
+  const end = $("in-end-date").value;
+  const edit = parseFloat($("in-edittime").value) || 0;
+
+  if (start && end) {
+    const d = calcDays(start, end);
+    $("live-days").textContent = d;
+    $("live-totedit").textContent = edit ? (edit * d).toFixed(1) : "—";
+    $("live-tothour").textContent = (d * 8);
+  } else {
+    $("live-days").textContent = "—";
+    $("live-totedit").textContent = "—";
+    $("live-tothour").textContent = "—";
+  }
+}
+$("in-start-date").addEventListener("change", updateLivePreview);
+$("in-end-date").addEventListener("change", updateLivePreview);
+$("in-edittime").addEventListener("input", updateLivePreview);
+
+// Save New Record
+$("btn-save-record").addEventListener("click", async () => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const start = $("in-start-date").value;
+  const end = $("in-end-date").value;
+  const historyText = $("preview-custom-text").textContent.trim() || "Editing";
+  const status1 = $("in-status1").value;
+  const subject = $("in-subject").value.trim() || "গ্রাম-ডাক্তার";
+  const editTime = $("in-edittime").value ? parseFloat($("in-edittime").value) : null;
+  const status2 = $("in-status2").value;
+  const opinion = $("in-opinion").value.trim();
+
+  if (!start) {
+    alert("অনুগ্রহ করে Start Date নির্বাচন করুন!");
     return;
   }
-  if (new Date(end) < new Date(start)) {
-    $("submit-error").textContent = "End Date কোনোভাবেই Start Date এর আগে হতে পারবে না!";
-    $("submit-error").classList.remove("hidden");
-    return;
-  }
 
-  const btn = $("submit-btn");
+  const btn = $("btn-save-record");
   btn.disabled = true;
-  btn.innerHTML = "সংরক্ষণ হচ্ছে...";
+  btn.innerHTML = `<span>⏳ সংরক্ষণ হচ্ছে...</span>`;
 
   try {
-    const user = auth.currentUser;
     await addDoc(collection(db, "entries"), {
       uid: user.uid,
       startDate: start,
-      endDate: end,
-      dailyHours: parseFloat(hours),
+      workHistory: historyText,
+      status1: status1,
       subject: subject,
-      workType: workType,
-      editTime: editTime ? parseFloat(editTime) : null,
-      finishTask: finishTask,
-      customNotes: "", // Ready for custom writing anytime
-      status: "Pending Review",
-      monthlyRating: null,
+      editTime: editTime,
+      status2: status2,
+      endDate: end || null,
+      opinion: opinion,
       createdAt: serverTimestamp()
     });
 
-    showToast("নতুন এন্ট্রি শিটে সফলভাবে যোগ করা হয়েছে!");
-    // Reset inputs
-    $("f-subject").value = "";
-    $("f-hours").value = "";
-    $("f-edittime").value = "";
-    $("f-finishtask").value = "";
+    showToast("রেকর্ড সফলভাবে শিট ও হিস্ট্রিতে যুক্ত হয়েছে!");
+    
+    // Reset
+    $("in-start-date").value = "";
+    $("in-end-date").value = "";
+    $("preview-custom-text").textContent = "Editing";
+    $("in-opinion").value = "";
+    updateLivePreview();
   } catch (err) {
     console.error(err);
-    $("submit-error").textContent = "সার্ভারে এন্ট্রি যোগ করতে সমস্যা হয়েছে।";
-    $("submit-error").classList.remove("hidden");
+    alert("ডাটা সংরক্ষণ করতে সমস্যা হয়েছে: " + err.message);
   } finally {
     btn.disabled = false;
-    btn.innerHTML = "<span>+ নতুন এন্ট্রি শিটে সংরক্ষণ করুন</span>";
+    btn.innerHTML = `<span>💾 শিটে নতুন রেকর্ড সংরক্ষণ করুন</span>`;
   }
-}
-$("submit-btn").addEventListener("click", submitNewEntry);
+});
 
-/* Auth Forms */
+// Auth Submit Handlers
 $("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   $("login-error").classList.add("hidden");
-  const b = $("login-btn");
-  b.disabled = true; b.textContent = "লগইন হচ্ছে...";
+  const b = $("login-submit-btn");
+  b.disabled = true; b.textContent = "যাচাই করা হচ্ছে...";
   try {
     await signInWithEmailAndPassword(auth, $("login-email").value, $("login-password").value);
   } catch (err) {
-    $("login-error").textContent = "ইমেইল অথবা পাসওয়ার্ড ভুল হয়েছে!";
+    $("login-error").textContent = "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়!";
     $("login-error").classList.remove("hidden");
   } finally {
     b.disabled = false; b.textContent = "লগইন করুন";
@@ -881,24 +1079,22 @@ $("login-form").addEventListener("submit", async (e) => {
 $("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   $("login-error").classList.add("hidden");
-  const b = $("signup-btn");
-  b.disabled = true; b.textContent = "অ্যাকাউন্ট তৈরি হচ্ছে...";
+  const b = $("signup-submit-btn");
+  b.disabled = true; b.textContent = "তৈরি হচ্ছে...";
   const name = $("signup-name").value.trim();
-  const email = $("signup-email").value.trim();
-  const password = $("signup-password").value;
   try {
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const cred = await createUserWithEmailAndPassword(auth, $("signup-email").value, $("signup-password").value);
     await updateProfile(cred.user, { displayName: name });
-    await setDoc(doc(db, "users", cred.user.uid), { name, email, role: "staff", createdAt: serverTimestamp() });
+    await setDoc(doc(db, "users", cred.user.uid), { name, email: $("signup-email").value, role: "staff", createdAt: serverTimestamp() });
   } catch (err) {
-    $("login-error").textContent = err.message || "রেজিস্ট্রেশন করতে ব্যর্থ হয়েছে।";
+    $("login-error").textContent = err.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে।";
     $("login-error").classList.remove("hidden");
   } finally {
-    b.disabled = false; b.textContent = "রেজিস্টার করুন";
+    b.disabled = false; b.textContent = "একাউন্ট তৈরি করুন";
   }
 });
 
-$("logout-btn").addEventListener("click", () => signOut(auth));
+$("btn-logout").addEventListener("click", () => signOut(auth));
 </script>
 </body>
 </html>
