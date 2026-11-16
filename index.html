@@ -116,16 +116,16 @@ textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
 <div id="land" class="hidden">
   <div class="nav">
     <div class="brand"><span class="lg"></span><div>Tri Nayon<small>Work Log</small></div></div>
-    <ul><li><a href="#how">How it works</a></li><li><a href="#window">Submission window</a></li></ul>
+    <ul><li><a href="#how">How it works</a></li><li><a href="#window">Submission rule</a></li></ul>
     <button class="btn" data-auth="in">Sign in</button>
   </div>
   <section class="hero">
     <div>
-      <span class="eyebrow"><i></i>Submissions open 12 PM – 12 AM</span>
+      <span class="eyebrow"><i></i>Submit anytime · once every hour</span>
       <h1>Your day's work, <em>on the record.</em></h1>
-      <p>A calm, structured way to log what you shipped each day. Submit in the daily window, get reviewed by your admin, and see their feedback right here.</p>
+      <p>A calm, structured way to log what you shipped each day. Submit any time (once an hour), get reviewed by your admin, and see their feedback right here.</p>
       <div class="cta"><button class="btn" data-auth="up">Create your account</button><button class="btn line" data-auth="in">Sign in</button></div>
-      <div class="trust"><div><b>12h</b>daily window</div><div><b>1 click</b>to submit</div><div><b>Live</b>admin review</div></div>
+      <div class="trust"><div><b>24/7</b>always open</div><div><b>1 click</b>to submit</div><div><b>Live</b>admin review</div></div>
     </div>
     <div class="stage" id="stage"><div class="hero3d" id="h3d"></div>
       <div class="mock m1">
@@ -134,20 +134,20 @@ textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
         <div class="bars"><i style="width:92%"></i><i style="width:74%"></i><i style="width:58%"></i></div>
         <div class="note"><b>ADMIN REVIEW</b>Clean pacing and color. Approved — great work on the audio sync.</div>
       </div>
-      <div class="mock m2"><small>Submissions close in</small><span class="mono">05:42:18</span><small style="text-transform:none;letter-spacing:0">Bangladesh Standard Time</small></div>
+      <div class="mock m2"><small>Next submission in</small><span class="mono">00:42:18</span><small style="text-transform:none;letter-spacing:0">One submission per hour</small></div>
     </div>
   </section>
   <section id="how" style="padding:30px 6vw 90px"><div class="wrap">
     <h2 class="sec-h">Three steps. Nothing extra.</h2><p class="sec-p">Built to stay out of your way, and to give your reviewer exactly what they need.</p>
     <div class="steps">
       <div class="step"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L20 8l-4-4L4 16v4z"/></svg></div><div class="n">01</div><h3>Log your work</h3><p>Describe the day: subject, hours, progress and a full work history in your own words.</p></div>
-      <div class="step"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="n">02</div><h3>Submit in the window</h3><p>Entries are accepted between 12:00 PM and 12:00 AM. Outside it, the form stays locked.</p></div>
+      <div class="step"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="n">02</div><h3>Submit anytime</h3><p>Submit as often as you need — one entry per hour. After each submission the form unlocks again in 60 minutes.</p></div>
       <div class="step"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg></div><div class="n">03</div><h3>Get reviewed</h3><p>Your admin approves or requests changes, and leaves a written note you can read instantly.</p></div>
     </div>
   </div></section>
   <section id="window" class="band"><div class="wrap win">
-    <div><h2 class="sec-h">One consistent daily window.</h2><p class="sec-p">Work is submitted after the day's work is done — from noon to midnight, Bangladesh time. Before that, you'll see a live countdown to the moment it opens.</p></div>
-    <div><div class="track"><i></i></div><div class="tl"><span>12 AM</span><span>12 PM · opens</span><span>12 AM · closes</span></div></div>
+    <div><h2 class="sec-h">Always open. One entry per hour.</h2><p class="sec-p">Submit your work at any time of day. To keep entries meaningful, each person can submit once per hour — after you submit, you'll see a live countdown to your next submission.</p></div>
+    <div><div class="track"><i style="left:0"></i></div><div class="tl"><span>Submit</span><span>wait 1 hour</span><span>Submit again</span></div></div>
   </div></section>
   <div class="foot"><span>© 2026 Tri Nayon. Developed by Antor Sikder.</span></div>
 </div>
@@ -182,10 +182,10 @@ textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
           <line class="m" x1="68" y1="68" x2="68" y2="32" stroke="#c8502f" stroke-width="2.5" stroke-linecap="round"/>
           <circle cx="68" cy="68" r="4" fill="#f5f0e6"/>
         </svg>
-        <h2>Submissions aren't open yet</h2>
-        <p>Today's work can be submitted from <b style="color:#f5f0e6">12:00 PM</b> (Bangladesh time).<br>Entries before then are not accepted.</p>
+        <h2>Submitted — next one unlocks soon</h2>
+        <p>You can submit <b style="color:#f5f0e6">once every hour</b>.<br>Your next submission opens when the timer reaches zero.</p>
         <div class="count"><div><b class="mono" id="c-h">00</b><span>Hours</span></div><div><b class="mono" id="c-m">00</b><span>Minutes</span></div><div><b class="mono" id="c-s">00</b><span>Seconds</span></div></div>
-        <span class="slot">Window: 12:00 PM → 12:00 AM daily</span>
+        <span class="slot">Limit: 1 submission per hour</span>
       </div>
       <div id="formbox" class="hidden">
         <div class="live"><i></i>Submissions open <span class="mono" id="closein"></span></div>
@@ -213,30 +213,35 @@ textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,updateProfile,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import{initializeAuth,indexedDBLocalPersistence,browserLocalPersistence,browserSessionPersistence,inMemoryPersistence,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,updateProfile,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,onSnapshot,serverTimestamp,writeBatch}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({apiKey:"AIzaSyA4OA9xJQd8xLLXDIdI5XckjsER8aRx9Do",authDomain:"daily-8b061.firebaseapp.com",projectId:"daily-8b061",storageBucket:"daily-8b061.firebasestorage.app",messagingSenderId:"151004750186",appId:"1:151004750186:web:5045d01ac5352c6b4f8513"});
-const auth=getAuth(app),db=getFirestore(app),$=i=>document.getElementById(i);
+// Keep the login across refreshes; fall back if a storage type is blocked by the browser
+const auth=initializeAuth(app,{persistence:[indexedDBLocalPersistence,browserLocalPersistence,browserSessionPersistence,inMemoryPersistence]}),db=getFirestore(app),$=i=>document.getElementById(i);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pad=n=>String(n).padStart(2,"0");
 const toast=m=>{const t=$("toast");t.textContent=m;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3200)};
 
-// Bangladesh time (UTC+6): open 12:00 PM – 12:00 AM
-function slot(){const n=new Date(Date.now()+6*36e5),y=n.getUTCFullYear(),m=n.getUTCMonth(),d=n.getUTCDate(),open=n.getUTCHours()>=12;
-  return{open,ms:Math.max(0,(open?Date.UTC(y,m,d+1,0):Date.UTC(y,m,d,12))-n.getTime())}}
+// Submissions are open 24/7. Limit: one submission per hour per user.
+const COOL=36e5;let lastAt=0;
+function slot(){const left=Math.max(0,lastAt+COOL-Date.now());return{open:left===0,ms:left}}
 let wasOpen=null;
 function tick(){const{open,ms}=slot(),s=Math.floor(ms/1e3),h=Math.floor(s/3600),m=Math.floor(s%3600/60),ss=s%60;
   $("gate").classList.toggle("hidden",open);$("formbox").classList.toggle("hidden",!open);
-  if(open)$("closein").textContent="closes in "+pad(h)+":"+pad(m)+":"+pad(ss);
+  if(open)$("closein").textContent="· one submission per hour";
   else{$("c-h").textContent=pad(h);$("c-m").textContent=pad(m);$("c-s").textContent=pad(ss)}
-  if(wasOpen===false&&open)toast("Submissions are now open");
+  if(wasOpen===false&&open)toast("You can submit again now");
   wasOpen=open}
 setInterval(tick,1e3);
 
-const tab=t=>{$("v-sub").classList.toggle("hidden",t!=="sub");$("v-my").classList.toggle("hidden",t!=="my");$("n-sub").classList.toggle("on",t==="sub");$("n-my").classList.toggle("on",t==="my")};
+const ls={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}},del:k=>{try{localStorage.removeItem(k)}catch{}}};
+const tab=t=>{ls.set("tn_tab",t);$("v-sub").classList.toggle("hidden",t!=="sub");$("v-my").classList.toggle("hidden",t!=="my");$("n-sub").classList.toggle("on",t==="sub");$("n-my").classList.toggle("on",t==="my")};
 $("n-sub").onclick=()=>tab("sub");$("n-my").onclick=()=>tab("my");
-document.querySelectorAll(".chips span").forEach(c=>c.onclick=()=>{const t=$("f-w");t.value=(t.value?t.value+" + ":"")+c.textContent});
+document.querySelectorAll(".chips span").forEach(c=>c.onclick=()=>{const t=$("f-w");t.value=(t.value?t.value+" + ":"")+c.textContent;t.dispatchEvent(new Event("input"))});
 
+const DF=["f-sub","f-s","f-e","f-h","f-p","f-w","f-o"];
+function restoreDraft(uid){try{const d=JSON.parse(ls.get("tn_draft_"+uid)||"{}");DF.forEach(i=>{if(d[i]!=null)$(i).value=d[i]})}catch{}
+  DF.forEach(i=>{$(i).oninput=$(i).onchange=()=>{const d={};DF.forEach(k=>d[k]=$(k).value);ls.set("tn_draft_"+uid,JSON.stringify(d))}})}
 let signup=false;
 function mode(up){signup=up;$("a-name-w").classList.toggle("hidden",!up);$("a-title").textContent=up?"Create your account":"Welcome back";$("a-sub").textContent=up?"Join as a staff member.":"Sign in with your staff account.";$("a-btn").textContent=up?"Create account":"Sign in";$("a-sw-t").textContent=up?"Already registered?":"New here?";$("a-sw").textContent=up?"Sign in":"Create an account";$("a-err").classList.add("hidden")}
 document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>{mode(b.dataset.auth==="up");$("auth").classList.remove("hidden")});
@@ -250,12 +255,15 @@ $("af").onsubmit=async e=>{e.preventDefault();$("a-err").classList.add("hidden")
   $("a-btn").disabled=false};
 $("out").onclick=()=>signOut(auth);
 
-let unsub=null,myName="";
-onAuthStateChanged(auth,async u=>{$("boot").classList.add("hidden");unsub&&unsub();
+let unsub=null,unsubU=null,myName="",authRun=0;
+setTimeout(()=>{if(!$("boot").classList.contains("hidden")&&$("land").classList.contains("hidden")&&$("app").classList.contains("hidden")){$("boot").classList.add("hidden");$("land").classList.remove("hidden")}},8000);
+onAuthStateChanged(auth,async u=>{const run=++authRun;$("boot").classList.add("hidden");unsub&&unsub();unsubU&&unsubU();lastAt=0;wasOpen=null;
   if(!u){$("app").classList.add("hidden");$("land").classList.remove("hidden");return}
   myName=u.displayName||u.email;
   try{const s=await getDoc(doc(db,"users",u.uid));if(s.exists()&&s.data().name)myName=s.data().name}catch{}
-  $("uname").textContent=myName;$("land").classList.add("hidden");$("auth").classList.add("hidden");$("app").classList.remove("hidden");tick();
+  if(run!==authRun)return;
+  $("uname").textContent=myName;$("land").classList.add("hidden");$("auth").classList.add("hidden");$("app").classList.remove("hidden");tick();tab(ls.get("tn_tab")==="my"?"my":"sub");restoreDraft(u.uid);
+  unsubU=onSnapshot(doc(db,"users",u.uid),x=>{const t=x.data({serverTimestamps:"estimate"})?.lastSubmitAt;lastAt=t?.toMillis?t.toMillis():0;tick()});
   unsub=onSnapshot(query(collection(db,"entries"),where("uid","==",u.uid)),snap=>{
     const rows=snap.docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.approval).sort((a,b)=>(b.createdAt?.toMillis?.()||Date.now())-(a.createdAt?.toMillis?.()||Date.now()));
     const L={pending:"Awaiting review",approved:"Approved",rejected:"Changes requested"};
@@ -267,13 +275,13 @@ onAuthStateChanged(auth,async u=>{$("boot").classList.add("hidden");unsub&&unsub
 
 $("f-btn").onclick=async()=>{
   const u=auth.currentUser;if(!u)return;
-  if(!slot().open){toast("Submissions are closed right now");return}
+  if(!slot().open){toast("You can submit only once per hour. Please wait for the timer.");return}
   const subject=$("f-sub").value.trim(),w=$("f-w").value.trim(),st=$("f-s").value;
   if(!subject||!w||!st){toast("Please add a subject, start date and work history");return}
   $("f-btn").disabled=true;
-  try{await addDoc(collection(db,"entries"),{uid:u.uid,name:myName,subject,startDate:st,endDate:$("f-e").value||null,hours:parseFloat($("f-h").value)||0,progress:$("f-p").value,workHistory:w,opinion:$("f-o").value.trim(),approval:"pending",review:"",createdAt:serverTimestamp()});
-    ["f-sub","f-s","f-e","f-h","f-w","f-o"].forEach(i=>$(i).value="");toast("Submitted — awaiting admin review");tab("my")}
-  catch{toast("Submission failed: outside the window or permission denied")}
+  try{const b=writeBatch(db);b.set(doc(collection(db,"entries")),{uid:u.uid,name:myName,subject,startDate:st,endDate:$("f-e").value||null,hours:parseFloat($("f-h").value)||0,progress:$("f-p").value,workHistory:w,opinion:$("f-o").value.trim(),approval:"pending",review:"",createdAt:serverTimestamp()});b.update(doc(db,"users",u.uid),{lastSubmitAt:serverTimestamp()});await b.commit();
+    ["f-sub","f-s","f-e","f-h","f-w","f-o"].forEach(i=>$(i).value="");ls.del("tn_draft_"+u.uid);toast("Submitted — awaiting admin review");tab("my")}
+  catch{toast("Submission failed: only one submission per hour is allowed, or permission denied")}
   $("f-btn").disabled=false};
 const st=document.getElementById("stage"),h3=document.getElementById("h3d");
 st.addEventListener("pointermove",e=>{const r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;h3.style.setProperty("--ry",(x*40)+"deg");h3.style.setProperty("--rx",(-y*30)+"deg")});
